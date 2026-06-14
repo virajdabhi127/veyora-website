@@ -592,6 +592,11 @@ html{
 }
 
 @media (max-width:768px) {
+
+    body, html{
+        overflow-x: hidden;
+    }
+   
      #nav_1{
         padding: 0 2rem;
         height: 6.5rem;
@@ -727,6 +732,7 @@ html{
         line-height: 1.2;
     }
     .sol_cont{
+        margin: 0;
         flex-direction: column;
         gap: 2rem;
     }
@@ -780,5 +786,12 @@ html{
     }
     .logo_text{
         font-size: 1.5rem;
+    }
+    
+    .irrigation, .home{
+        width: 100%;
+        min-height: 35rem; /* or 40rem if needed */
+        height: auto;
+        overflow: hidden;
     }
 }

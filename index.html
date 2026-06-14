@@ -195,7 +195,7 @@
                 </ul>
             </div>
             <div class="footer_col">
-                <h3>Services</h3>
+                <h3>Control</h3>
                 <ul>
                     <li><a href="irrigation-dashboard.html">Irrigation automation control</a></li>
                     <li><a href="home-dashboard.html">Home automation control</a></li>
@@ -315,8 +315,14 @@
     });
     const menuToggle = document.querySelector(".menu-toggle");
     const navLinks = document.querySelector(".link_1");
-    menuToggle.addEventListener("click",()=>{
+    menuToggle.addEventListener("click", (e) => {
         navLinks.classList.toggle("active");
+        e.stopPropagation(); // Prevent immediate closing
+    });
+    document.addEventListener("click", (e) => {
+        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+            navLinks.classList.remove("active");
+        }
     });
     const dropdowns = document.querySelectorAll('.dropdown');
     dropdowns.forEach((dropdown) => {
