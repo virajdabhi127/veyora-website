@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -186,4 +187,194 @@
     </script>
     <script src="script1.js"></script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
+    <link rel="shortcut icon" href="images/favicon.ico">
+    <title>Irrigation Dashboard</title>
+    <link rel="stylesheet" href="irrigationdashStylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+</head>
+<body>
+    <div id="head_1">
+        <nav id="nav_1">
+            <a href="index.html" class="logo">
+                <img src ="images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
+            </a>
+            <div class="link_1">
+                <a href="index.html">HOME</a>
+                <div class="dropdown">
+                    <a href="#" class="project-link">PROJECTS</a>
+                     <div class="dropdown-content">
+                    <a href="smart-irrigation.html">Smart Irrigation System</a>
+                    <a href="home-automation.html">Home Automation System</a>
+                </div>
+                </div>
+                <div class="dropdown">
+                    <a href="#" class="service-link">CONTROL</a>
+                    <div class="dropdown-content">
+                        <a href="irrigation-dashboard.html" class="active">Irrigation Dashboard</a>
+                        <a href="home-dashboard.html">Home Automation Dashboard</a>
+                    </div>
+                </div>
+                <a href="#contact">CONTACT</a>
+                <a href="about.html#about">ABOUT US</a>
+            </div>
+            <div class="menu-toggle">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
+            </div>
+        </nav>
+    </div>
+     <div class="main">
+        <div class="head">
+            <div class="userBox">
+                <i class="fa-solid fa-user"></i>
+                <span id="loggedUser"></span>
+            </div>
+            <div class="lang">
+                <select id="languageSelect" class="langSelect" onchange="changeLanguage()">
+                    <option value="en">English</option>
+                    <option value="hi">हिन्दी</option>
+                    <option value="gu">ગુજરાતી</option>
+                    <option value="mr">मराठी</option>
+                    <option value="bn">বাংলা</option>
+                </select>
+            </div>
+            <h1>IRRIGATION CONTROL</h1>
+        </div>
+        <div class="nav">
+            <nav class="navbar">
+                <ul class="navList">
+                    <li><a href="dashboard.html" class="active">Dashboard</a></li>
+                    <li><a href="index.html">Control</a></li>
+                    <li><a href="#" class="btn3" id="logoutBtn" onclick="logout()">Logout</a></li>
+                </ul>           
+            </nav>
+        </div>
+        <div class="dash1">
+            <div class="dash">
+                <ul class="status">
+                    <li class="statli1">
+                        <div class="alarm">
+                            <span id="alarmLabel">Active alarms :</span><div id="alarmState"></div>
+                        </div>
+                    </li>
+                    <li class="statli"><span id="modeLabel">Mode selected :</span><span id="modeSelect">--</span></li>
+                    <li class="statli1"><span id="selectionLabel">Current selection :</span>
+                        <div class="selections">
+                            <div><span id="cropLabel">Crop :</span><span id="selectedCrop">--</span></div>
+                            <div><span id="timeLabel">Time :</span><span id="selectedTime">--</span></div>
+                            <div><span id="daysLabel">Days :</span><span id="selectedDays">--</span></div>
+                        </div>
+                    </li>
+                    <li class="statli"><span id="voltageLabel">Battery Voltage :</span><span id="batVol">--</span></li>    
+                    <li class="statli"><span id="sourceLabel">Source :</span><span id="src">--</span></li>
+                    <li class="statli"><span id="pumpLabel">Pump :</span><span id="pumpState">--</span></li>
+                </ul>
+            </div>
+            <div class="alarmHistoryBox">
+                <span id="alarmHistoryTitle">Alarm History :</span>
+                <div class="alarmHistoryHidden" id="alarmHistoryList1">
+                    <div id="alarmHistoryList"></div>
+                    <a href=# id="resetAlarmsBtn">Reset</a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <footer class="footer">
+        <div class="footer_grid">
+            <div class="footer_col">
+                <h3>Company</h3>
+                <ul>
+                    <li><a href="about.html#about">About Veyora</a></li>
+                    <li><a href="about.html#vision">Vision</a></li>
+                    <li><a href="about.html#mission">Mission</a></li>
+                </ul>
+            </div>
+            <div class="footer_col">
+                <h3>Projects</h3>
+                <ul>
+                    <li><a href="smart-irrigation.html">Smart Irrigation System</a></li>
+                    <li><a href="home-automation.html">Smart Home</a></li>
+                </ul>
+            </div>
+            <div class="footer_col">
+                <h3>Services</h3>
+                <ul>
+                    <li><a href="irrigation-dashboard.html">Irrigation automation control</a></li>
+                    <li><a href="home-dashboard.html">Home automation control</a></li>
+                </ul>
+            </div>
+            <div class="footer_col">
+                <h3 id="contact">Contact</h3>
+                <ul>
+                    <li><a href="#" onclick="copyEmail()">Email us</a></li>
+                    <li>Rajkot, Gujarat - 360001</li>
+                    <!-- <li>
+                        <div class="social_icons">
+                            <a href="#">
+                                <i class="fa-brands fa-linkedin-in"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fa-brands fa-github"></i>
+                            </a>
+                            <a href="#">
+                                <i class="fa-brands fa-instagram"></i>
+                            </a>
+                        </div>
+                    </li> -->
+                </ul>
+            </div>
+        </div>
+        <div class="footer_bottom">
+            <a href="index.html" class="foot_logo">
+                <img src="images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
+            </a>
+            <span class="rights">
+                © 2026 Veyora. All Rights Reserved.
+            </span>
+        </div>
+    </footer>
+    <script>
+        function copyEmail() {
+        navigator.clipboard.writeText("virajdabhi910@gmail.com")
+            .then(() => {
+                alert("Email copied to clipboard!");
+            })
+            .catch(err => {
+                console.error("Failed to copy:", err);
+            });
+    }
+    const menuToggle = document.querySelector(".menu-toggle");
+    const navLinks = document.querySelector(".link_1");
+    menuToggle.addEventListener("click",()=>{
+        navLinks.classList.toggle("active");
+    });
+    const dropdowns = document.querySelectorAll('.dropdown');
+    dropdowns.forEach((dropdown) => {
+        const trigger = dropdown.querySelector('a');
+        trigger.addEventListener('click', (e) => {
+            if(window.innerWidth > 768) return;
+            e.preventDefault();
+            const isOpen = dropdown.classList.contains('open');
+            dropdowns.forEach(item => {
+                item.classList.remove('open');
+            });
+            if(!isOpen){
+                dropdown.classList.add('open');
+            }
+        });
+    });
+    </script>
+    <script src="script1.js"></script>
+</body>
+>>>>>>> 20a1d2c (irrigation page changed)
 </html>
