@@ -21,22 +21,6 @@
             </a>
             <div class="link_1">
                 <a href="index.html">HOME</a>
-                <div class="dropdown">
-                    <a href="#" class="project-link">PROJECTS</a>
-                     <div class="dropdown-content">
-                    <a href="smart-irrigation.html">Smart Irrigation System</a>
-                    <a href="home-automation.html">Home Automation System</a>
-                </div>
-                </div>
-                <div class="dropdown">
-                    <a href="#" class="service-link">CONTROL</a>
-                    <div class="dropdown-content">
-                        <a href="irrigation-dashboard.html" class="active">Irrigation Dashboard</a>
-                        <a href="home-dashboard.html">Home Automation Dashboard</a>
-                    </div>
-                </div>
-                <a href="#contact">CONTACT</a>
-                <a href="about.html#about">ABOUT US</a>
             </div>
             <div class="menu-toggle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
@@ -58,7 +42,7 @@
                     <option value="bn">বাংলা</option>
                 </select>
             </div>
-            <h1>IRRIGATION CONTROL</h1>
+            <h1 class="heading">IRRIGATION CONTROL</h1>
         </div>
         <div class="nav">
             <nav class="navbar">
@@ -84,19 +68,25 @@
                             <div><span id="timeLabel">Time :</span><span id="selectedTime">--</span></div>
                             <div><span id="daysLabel">Days :</span><span id="selectedDays">--</span></div>
                         </div>
-                    </li>
-                    <li class="statli"><span id="voltageLabel">Battery Voltage :</span><span id="batVol">--</span></li>    
+                    </li>  
                     <li class="statli"><span id="sourceLabel">Source :</span><span id="src">--</span></li>
                     <li class="statli"><span id="pumpLabel">Pump :</span><span id="pumpState">--</span></li>
+                    <li class="statli"><span id="voltageLabel">Battery Voltage :</span><span id="batVol">--</span></li>  
                 </ul>
             </div>
-            <div class="alarmHistoryBox">
-                <span id="alarmHistoryTitle">Alarm History :</span>
-                <div class="alarmHistoryHidden" id="alarmHistoryList1">
-                    <div id="alarmHistoryList"></div>
-                    <a href=# id="resetAlarmsBtn">Reset</a>
+            <div class="box">
+                <div class="alarmHistoryBox">
+                    <span id="alarmHistoryTitle">Alarm History :</span>
+                    <div class="alarmHistoryHidden" id="alarmHistoryList1">
+                        <div id="alarmHistoryList"></div>
+                        <a href=# id="resetAlarmsBtn">Reset</a>
+                    </div>
                 </div>
             </div>
+        </div>
+        <div class="graphbox">
+            <h1>Voltage graph</h1>
+            <canvas id="voltageChart"></canvas>
         </div>
     </div>
     <footer class="footer">
@@ -153,6 +143,7 @@
             </span>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         function copyEmail() {
         navigator.clipboard.writeText("virajdabhi910@gmail.com")

@@ -4,7 +4,6 @@ const API = window.location.hostname === "localhost"
 // const API = "http://localhost:5000";
 const token = sessionStorage.getItem("token");
 let currentCropEnglish = null;
-
 window.onload = async function(){
   const verified = await verifyUser();
   if(!verified) return;
@@ -124,6 +123,7 @@ historyTitle.addEventListener("click", () => {
 });
 let lastStatus = null;
 
+let lastVoltage = null;
 function updateDashboard(data){
   // if(lastStatus && JSON.stringify(lastStatus) === JSON.stringify(data)){
   //     return;
@@ -133,7 +133,13 @@ function updateDashboard(data){
   document.getElementById("selectedCrop").textContent = translateCrop(currentCropEnglish) ?? "--";
   document.getElementById("selectedTime").textContent = data.selectedTime ?? "--";
   document.getElementById("selectedDays").textContent = data.selectedDays ?? "--";
-  document.getElementById("batVol").textContent = `${data.batVol} V` ?? "--";
+  document.getElementById("batVol").textContent = data.batVol ? `${data.batVol} V` : "--";
+  const batVol = parseFloat(data.batVol);
+  if(lastVoltage === null || Math.abs(batVol - lastVoltage) >= 0.05){
+      updateVoltageGraph(batVol);
+      lastVoltage = batVol;
+  }
+  
   document.getElementById("modeSelect").textContent = data.modeSelect ?? "--";
   document.getElementById("src").textContent = data.src ?? "--";
   document.getElementById("pumpState").textContent = data.pumpState ?? "--";
@@ -267,4 +273,56 @@ function logout() {
     sessionStorage.removeItem("token");
     window.location.replace("indexLogin.html");
   }
+}
+
+const ctx = document.getElementById('voltageChart').getContext('2d');
+const voltageData = [];
+const timeLabels = [];
+const voltageChart = new Chart(ctx, {
+    type: 'line',
+    data: {
+        labels: timeLabels,
+        datasets: [{
+            label: 'Voltage (V)',
+            data: voltageData,
+            borderColor: '#38bdf8',
+            backgroundColor: 'rgba(56,189,248,0.1)',
+            fill: true,
+            tension: 0.4
+        }]
+    },
+    options: {
+        animation: false,
+        responsive: true,
+        maintainAspectRatio: false,
+        scales: {
+            x: {
+                display: false
+            },
+            y: {
+                ticks: {
+                    color: 'white'
+                },
+                min: 0,
+                max: 14
+            }
+        },
+        plugins: {
+            legend: {
+               display:false
+            }
+        }
+    }
+});
+function updateVoltageGraph(batVol){
+
+    voltageData.push(batVol);
+    timeLabels.push("");
+
+    if(voltageData.length > 20){
+        voltageData.shift();
+        timeLabels.shift();
+    }
+
+    voltageChart.update('none');
 }

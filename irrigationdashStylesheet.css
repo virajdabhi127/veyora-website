@@ -12,13 +12,26 @@ html{
 }
 
 body{
-    background: linear-gradient(135deg, #021124, #052347);
+    width: 100%;
+    min-height: 100vh;
+    background-image: url(images/wallpaper_1.png);
+    background-size: cover;          /* Important */
+    background-position: center;     /* Important */
+    background-repeat: no-repeat;
+    background-attachment: fixed;    /* Optional */
     color: white;
     display: flex;
     flex-direction: column;
-    min-height: 100vh;
-    margin-top: 9rem;
+    margin: 0;        /* Not margin-top */
     padding: 0;
+}
+
+body::before{
+    content: "";
+    position: fixed;
+    inset: 0;
+    background: rgba(0,0,0,0.45);
+    z-index: -1;
 }
 
 #nav_1{
@@ -161,7 +174,8 @@ body{
     display: flex;
     flex-direction: column;
     margin: 2rem auto;
-    background: rgba(255,255,255,0.02);
+    margin-top: 9rem;
+    background: linear-gradient(135deg, #021124, #052347);
     backdrop-filter: blur(10px);
     border: 1px solid rgba(255,255,255,0.05);
     border-radius: 20px;
@@ -182,7 +196,6 @@ body{
 .dash1{
     display: flex;
     flex-direction: row;
-    justify-content: space-between;
 }
 
 .navList {
@@ -200,10 +213,6 @@ body{
 .dash{
     margin-top: 1rem;
     display: flex;
-}
-
-.alarmHistoryHidden{
-  display:none;
 }
 
 .userBox{
@@ -227,9 +236,43 @@ body{
 #alarmHistoryList{
     margin: 1rem 0;
     display: flex;
+    gap: 0.5rem;
     flex-direction: column;
     font-size: 1.35rem;
     color: #fff;
+}
+
+.box{
+    width: 41rem;
+    margin: 2rem 0 1rem 3rem;
+    max-height: 34.5rem;
+    display: flex;
+    padding: 1rem 2rem;
+    flex-direction: column;
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
+}
+
+.graphbox{
+    align-items: center;
+    display: flex;
+    margin-top: 2rem;
+    flex-direction: column;
+    background: #071b34;
+    border: 1px solid rgba(255,255,255,0.08);
+    border-radius: 18px;
+    padding: 20px;
+}
+
+.graphbox h1{
+    margin-bottom: 2.5rem;
+}
+
+#voltageChart{
+    width: 100% !important;
+    height: 280px !important;
 }
 
 #resetAlarmsBtn{
@@ -241,12 +284,11 @@ body{
 }
 
 .alarmHistoryBox{
-  width: 45%;
+  width: 100%;
   display: flex;
   flex-direction: column;
   text-decoration: none;
-  margin-top: 1rem;;
-  position:relative;
+  margin-top: 0.5rem;
 }
 
 .navList li a {
@@ -302,11 +344,24 @@ body{
 }
 
 .statli{
+    width: 50rem;
     display: flex;
-    padding: 1rem 0;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
 }
 
 .statli1{
+    width: 50rem;
+    margin: 1rem 0;
+    padding: 1rem;
+    background: rgba(255,255,255,0.02);
+    backdrop-filter: blur(10px);
+    border: 1px solid rgba(255,255,255,0.05);
+    border-radius: 20px;
     display: flex;
     flex-direction: column;
 }
@@ -339,7 +394,7 @@ span{
     margin-left: 1rem;
 }
 
-h1{
+.heading{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
@@ -622,8 +677,20 @@ select:focus{
         display: flex;
         flex-direction: column;
     }
+    .statli, .statli1{
+        width: 100%;
+    }
 
+    .box{
+        width: 100%;
+        display: flex;
+        margin: 0 auto;
+    }
     .alarmHistoryBox{
-        margin-top: 20px;
+        display: flex;
+        margin: 0;
+    }
+    #alarmHistoryList{
+        font-size: 1.1rem;
     }
 }
