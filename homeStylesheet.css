@@ -265,6 +265,32 @@ html{
     margin-bottom: 5rem;
 }
 
+ .solutions h1::after{
+    content:"";
+    display:block;
+    width:32rem;
+    height:5px;
+    margin:1rem auto;
+    border-radius:10px;
+    background: linear-gradient(
+    90deg,
+    #1d4ed8,
+    #38bdf8,
+    #1d4ed8
+);
+    background-size: 200% 100%;
+    animation: lineGlow 5s linear infinite;
+}
+
+@keyframes lineGlow{
+    0%{
+        background-position: 200% 0;
+    }
+    100%{
+        background-position: -200% 0;
+    }
+}
+
 .sol_cont{
     width: 100%;
     display: flex;
@@ -672,7 +698,7 @@ html{
     .logo_text{
         font-size:2rem;
     }
-     .hero-content{
+    .hero-content{
         left: 2rem;
         right: 2rem;
         max-width: 100%;
@@ -787,7 +813,6 @@ html{
     .logo_text{
         font-size: 1.5rem;
     }
-    
     .irrigation, .home{
         width: 100%;
         min-height: 35rem; /* or 40rem if needed */
