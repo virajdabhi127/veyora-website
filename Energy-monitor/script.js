@@ -1,4 +1,6 @@
-const socket = io();
+const socket = io(window.location.hostname === "localhost"
+    ? "http://localhost:3000"
+    : "https://veyora-energy-backend-production.up.railway.app");
 
 socket.on("connect", () => {
     console.log("Socket Connected");
