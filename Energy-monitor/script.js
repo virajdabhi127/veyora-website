@@ -11,15 +11,15 @@ socket.on("disconnect", () => {
 });
 
 socket.on("update", (data) => {
-    document.getElementById("status").textContent = data.connectionStatus;
+    console.log("Received:", data);
     document.getElementById("lastUpdate").textContent = data.lastUpdate;
-    document.getElementById("voltage").textContent = data.voltage.toFixed(2);
-    document.getElementById("current").textContent = data.current.toFixed(2);
-    document.getElementById("pf").textContent = data.pf.toFixed(2);
-    document.getElementById("realPower").textContent = data.realPower.toFixed(2);
-    document.getElementById("apparentPower").textContent = data.apparentPower.toFixed(2);
-    document.getElementById("energyWh").textContent = data.energyWh.toFixed(2);
-    document.getElementById("energyKWh").textContent = data.energyKWh.toFixed(3);
+    document.getElementById("voltage").textContent = Number(data.voltage).toFixed(2);
+    document.getElementById("current").textContent = Number(data.current).toFixed(2);
+    document.getElementById("pf").textContent = Number(data.pf).toFixed(2);
+    document.getElementById("realPower").textContent = Number(data.realPower).toFixed(2);
+    document.getElementById("apparentPower").textContent = Number(data.apparentPower).toFixed(2);
+    document.getElementById("energyWh").textContent = Number(data.energyWh).toFixed(2);
+    document.getElementById("energyKWh").textContent = Number(data.energyKWh).toFixed(3);
 });
 
 setInterval(() => {
