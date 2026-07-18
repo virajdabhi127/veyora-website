@@ -1,6 +1,12 @@
-const socket = io(window.location.hostname === "localhost"
-    ? "http://localhost:3000"
-    : "https://veyora-energy-backend-production.up.railway.app");
+const isLocal =
+    window.location.hostname === "localhost" ||
+    window.location.hostname === "127.0.0.1";
+
+const socket = io(
+    isLocal
+        ? "http://localhost:3000"
+        : "https://veyora-energy-backend-production.up.railway.app"
+);
 
 socket.on("connect", () => {
     console.log("Socket Connected");
@@ -11,7 +17,6 @@ socket.on("disconnect", () => {
 });
 
 socket.on("update", (data) => {
-    console.log("Received:", data);
     document.getElementById("lastUpdate").textContent = data.lastUpdate;
     document.getElementById("voltage").textContent = Number(data.voltage).toFixed(2);
     document.getElementById("current").textContent = Number(data.current).toFixed(2);
