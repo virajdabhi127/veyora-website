@@ -17,7 +17,12 @@ socket.on("disconnect", () => {
 });
 
 socket.on("update", (data) => {
-    document.getElementById("lastUpdate").textContent = data.lastUpdate;
+    document.getElementById("lastUpdate").textContent = new Date(data.lastUpdate).toLocaleTimeString("en-IN", {
+        hour12: false,
+        hour: "2-digit",
+        minute: "2-digit",
+        second: "2-digit"
+    });
     document.getElementById("voltage").textContent = Number(data.voltage).toFixed(2);
     document.getElementById("current").textContent = Number(data.current).toFixed(2);
     document.getElementById("pf").textContent = Number(data.pf).toFixed(2);
