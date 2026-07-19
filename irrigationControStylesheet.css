@@ -166,6 +166,9 @@ body::before{
 .menu-toggle{
     display: none;
 }
+.container{
+    flex: 1;
+}
 .head{
    max-width: 100rem;
     width: 100%;
@@ -380,6 +383,7 @@ select option[disabled] {
     background-color: #740c0c;
 }
 .footer{
+    margin-top: auto;
     background:#111827;
     color:white;
 }
