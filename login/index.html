@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <title>LOGIN</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+</head>
+<body>
+    <div id="head_1">
+        <nav id="nav_1">
+            <a href="../index.html" class="logo">
+                <img src ="../images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
+            </a>
+            <div class="link_1">
+                <a href="../index.html">HOME</a>
+            </div>
+        </nav>
+    </div>
+    <form id="loginForm">
+        <div class="main">
+            <div class="head">
+                <h1 class="title">WELCOME</h1>
+            </div>
+            <div class="credits">
+                <div class="id">
+                    <label for="user" id="labelid">Enter User ID :</label>
+                    <input  class="userId" type="text" id="userid" name="user">
+                </div>
+                <div class="pass">
+                    <label for="password" id="labelpass">Enter Password :</label>
+                    <input class="ps" type="password" id="password" name="password">
+                     <button type="button" id="togglePassword">
+                         <svg id="eyeOpen" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-icon lucide-eye"><path d="M2.062 12.348a1 1 0 0 1 0-.696 10.75 10.75 0 0 1 19.876 0 1 1 0 0 1 0 .696 10.75 10.75 0 0 1-19.876 0"/><circle cx="12" cy="12" r="3"/></svg>
+                        <svg id="eyeClosed" xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-eye-off-icon lucide-eye-off" style="display: none;"><path d="M10.733 5.076a10.744 10.744 0 0 1 11.205 6.575 1 1 0 0 1 0 .696 10.747 10.747 0 0 1-1.444 2.49"/><path d="M14.084 14.158a3 3 0 0 1-4.242-4.242"/><path d="M17.479 17.499a10.75 10.75 0 0 1-15.417-5.151 1 1 0 0 1 0-.696 10.75 10.75 0 0 1 4.446-5.143"/><path d="m2 2 20 20"/></svg>
+                    </button>
+                </div>
+            </div>
+            <button type="submit" class="btn" id="loginBtn">Login</button>
+        </div>
+    </form>
+    <script src="../api.js"></script>
+    <script>
+        document.getElementById("loginForm").addEventListener("submit", async function (e) {
+        e.preventDefault();
+        const userid = document.getElementById("userid").value.trim();
+        const password = document.getElementById("password").value.trim();
+        if (!userid || !password) {
+            alert("Invalid credentials");
+            return;
+        }
+        try {
+            const response = await apiFetch("/auth/login", {
+                method: "POST",
+                skipAuthRedirect: true,
+                body: JSON.stringify({ userid, password})
+            });
+            const data = await response.json();
+            if (response.ok) {
+                if (data.user.role === "admin") {
+                    window.location.replace("../admin/index.html");
+                    return;
+                }
+                const deviceResponse = await apiFetch("/devices");
+                if (!deviceResponse) {
+                    return;
+                }
+                const deviceData = await deviceResponse.json();
+                if (!deviceData.devices || deviceData.devices.length === 0) {
+                    alert("No device assigned.");
+                    return;
+                }
+                const productCode = deviceData.devices[0].productCode;
+                switch (productCode) {
+                    case "EM":
+                        window.location.replace("../energy-monitor/dashboard/index.html");
+                        break;
+                    case "HA":
+                        window.location.replace("../home-automation/dashboard/index.html");
+                        break;
+                    case "EM_HA":
+                        window.location.replace("../combined/dashboard/index.html");
+                        break;
+                    default:
+                        alert("No valid product assigned.");
+                }
+            } else {
+                alert(data.message);
+            }
+            } catch (error) {
+                console.error(error);
+                alert("Server error");
+            }
+        });
+    </script>
+    <script>
+        const password = document.getElementById("password");
+        const toggle = document.getElementById("togglePassword");
+        const eyeOpen = document.getElementById("eyeOpen");
+        const eyeClosed = document.getElementById("eyeClosed");
+        toggle.addEventListener("click", () => {
+            if(password.type === "password"){
+                password.type = "text";
+                eyeOpen.style.display = "block";
+                eyeClosed.style.display = "none";
+            }
+            else{
+                password.type = "password";
+                eyeOpen.style.display = "none";
+                eyeClosed.style.display = "block";
+            }
+        });
+    </script>
+</body>
+</html>

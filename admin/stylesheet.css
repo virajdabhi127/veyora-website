@@ -1,0 +1,73 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    padding: 20px;
+    font-family: Arial, sans-serif;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+h2 {
+    margin-bottom: 15px;
+}
+
+#statsSection{
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.statCard{
+    display: flex;
+    align-items: center;
+    gap: 2rem;
+}
+
+#forms, #tables {
+    display: flex;
+    gap: 30px;
+    margin-bottom: 30px;
+}
+
+#userSection, #deviceSection, #users, #devices {
+    flex: 1;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+}
+
+label {
+    margin-top: 10px;
+    margin-bottom: 5px;
+}
+
+input, select, button {
+    padding: 8px;
+}
+
+button {
+    margin-top: 20px;
+    width: fit-content;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table th, table td {
+    padding: 10px;
+    text-align: left;
+}
+
+hr{
+    margin: 30px 0;
+}

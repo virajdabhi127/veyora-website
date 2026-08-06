@@ -4,6 +4,10 @@ html{
     overflow-x: hidden;
 }
 
+hr{
+    margin: 0 5rem;
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -160,14 +164,14 @@ html{
 }
 
 .hero-text h1{
-    font-size: clamp(4rem, 6vw, 6rem);
+    font-size: clamp(2rem, 6vw, 4rem);
     font-weight: 700;
     letter-spacing: 0.3rem;
     text-shadow: 0 0 10px rgba(255,255,255,0.4);
 }
 
 .hero-text p{
-    font-size: 2rem;
+    font-size: 2.5rem;
     margin-top: 3rem;
     font-weight: 300;
 }
@@ -206,13 +210,58 @@ html{
 }
 
 .hero-content h1{
-    font-size:6rem;
+    font-size:4.5rem;
     margin-bottom:2rem;
 }
 
 .hero-content p{
     font-size:2rem;
     max-width: 50rem;
+}
+
+.hero-btn {
+    margin-top: 2rem;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    padding: 14px 34px;
+    font-size: 16px;
+    font-weight: 600;
+    color: #ffffff;
+    text-decoration: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg, #1b4e9b, #0e418d);
+    border: none;
+    cursor: pointer;
+    transition: all 0.35s ease;
+    box-shadow: 0 10px 15px rgba(13, 110, 253, 0.35);
+    position: relative;
+    overflow: hidden;
+}
+
+.hero-btn:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 15px 20px rgba(13, 110, 253, 0.45);
+}
+
+.hero-btn:active {
+    transform: translateY(-1px);
+}
+
+.hero-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -120%;
+    width: 60%;
+    height: 100%;
+    background: rgba(255,255,255,0.25);
+    transform: skewX(-25deg);
+    transition: 0.7s;
+}
+
+.hero-btn:hover::before {
+    left: 160%;
 }
 
 .innovation{
@@ -307,9 +356,14 @@ html{
     font-weight: 500;
 }
 
+.sec p{
+    font-size: 1.65rem;
+    color: #e5e7eb;
+}
+
 .sec{
     flex: 1;
-    height: 30rem;
+    height: 35rem;
     border-radius: 3rem;
     overflow: hidden;
     position: relative;
@@ -818,5 +872,10 @@ html{
         min-height: 35rem; /* or 40rem if needed */
         height: auto;
         overflow: hidden;
+    }
+    .hero-btn{
+        width:15rem;
+        padding: 12px;
+        font-size: 1.25rem;
     }
 }

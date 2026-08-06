@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="shortcut icon" href="/images/favicon.ico">
+    <title>ADMIN PAGE</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+</head>
+<body>
+    <h1>Veyora Admin Panel</h1>
+    <a href="../index.html">HOME</a>
+    <hr>
+    <div id="statsSection">
+        <div class="statCard">
+            <h3>Total Users</h3>
+            <h1 id="totalUsers">0</h1>
+        </div>
+        <div class="statCard">
+            <h3>Total Devices</h3>
+            <h1 id="totalDevices">0</h1>
+        </div>
+    </div>
+    <hr>
+    <div id="forms">
+
+        <div id="userSection">
+            <h2 id="userFormTitle">Create User</h2>
+            <form id="createUserForm">
+                <input type="hidden" id="editMode" value="">
+                <label>User ID</label><br>
+                <input type="text" id="userid"><br><br>
+                <label>Display Name</label><br>
+                <input type="text" id="username"><br><br>
+                <label id="pass">Password</label><br>
+                <input type="password" id="password"><br><br>
+                <label>Role</label><br>
+                <select id="role">
+                    <option value="user">User</option>
+                    <option value="admin">Admin</option>
+                </select><br><br>
+                <button type="submit" id="userSubmitBtn">
+                    Create User
+                </button>
+                <button type="button" id="cancelUserBtn" onclick="cancelEdit()" style="display:none;">
+                    Cancel
+                </button>
+            </form>
+        </div>
+
+        <div id="deviceSection">
+            <h2 id="deviceFormTitle">Assign Device</h2>
+             <form id="assignDeviceForm">
+                <input type="hidden" id="deviceEditMode" value="">
+                <label>Device ID</label><br>
+                <input type="text" id="deviceId"><br><br>
+                <label>User ID</label><br>
+                <input type="text" id="assignUserid"><br><br>
+                <label>Product</label><br>
+                <select id="productCode">
+                    <option value="EM">Energy Meter</option>
+                    <option value="HA">Home Automation</option>
+                    <option value="EM_HA">Combined</option>
+                </select><br><br>
+                <label>Channel Count</label><br>
+                <input type="number" id="channelCount" min="1"><br><br>
+                <button type="submit" id="deviceSubmitBtn">Assign Device</button>
+                <button type="button" id="cancelDeviceBtn" onclick="cancelDeviceEdit()" style="display:none;"> Cancel</button>
+            </form>
+        </div>
+
+    </div>
+    <hr>
+     <div id="tables">
+        <div id="users">
+            <label>Search User</label><br>
+            <input type="text" id="searchUser" placeholder="Search by User ID or Name">
+            <br><br>
+            <h2>Users</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th onclick="sortUsers()" id="userSortHeader">User ID (A - Z)</th>
+                        <th>Name</th>
+                        <th>Role</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="usersTableBody">
+                </tbody>
+            </table>
+        </div>
+        <div id="devices">
+            <label>Search Device</label><br>
+            <input type="text" id="searchDevice" placeholder="Search by Device ID or User ID">
+            <br><br>
+            <h2>Devices</h2>
+            <table border="1">
+                <thead>
+                    <tr>
+                        <th onclick="sortDevices()" id="deviceSortHeader">Device ID (A - Z)</th>
+                        <th>User ID</th>
+                        <th>Product</th>
+                        <th>Channels</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody id="devicesTableBody">
+                </tbody>
+            </table>
+        </div>
+    </div>
+    <script src="../api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
