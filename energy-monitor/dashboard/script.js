@@ -102,10 +102,12 @@ function updateDashboard(data) {
             minute: "2-digit",
             second: "2-digit"
         });
-    document.getElementById("voltage").textContent = Number(data.voltage).toFixed(2);
-    document.getElementById("totalCurrent").textContent = Number(data.totalCurrent).toFixed(2);
+    document.getElementById("voltage").textContent = `${Number(data.voltage).toFixed(2)} V`;
+    document.getElementById("totalCurrent").textContent = `${Number(data.totalCurrent).toFixed(2)} A`;
     document.getElementById("energyKWh").textContent = Number(data.energyKWh).toFixed(2);
-    document.getElementById("energyWh").textContent = (data.energyKWh * 1000).toFixed(0);
+    document.getElementById("energyWh").textContent = `${(data.energyKWh * 1000).toFixed(0)} Wh`;
+    document.getElementById("totalRealPower").textContent = `${Number(data.totalRealPower).toFixed(0)} W`;
+    document.getElementById("totalApparentPower").textContent = `${Number(data.totalApparentPower).toFixed(0)} VA`;
     data.channels.forEach(channel => {
         document.getElementById(`current-${channel.channelId}`).textContent = channel.current.toFixed(2);
         document.getElementById(`pf-${channel.channelId}`).textContent = channel.pf.toFixed(2);
@@ -120,18 +122,21 @@ function createChannelCards(channelCount) {
     for (let i = 1; i <= channelCount; i++) {
         container.innerHTML += `
             <div class="channel-card">
-                <h3>CH ${i}</h3>
+                <h3>ZONE ${i}</h3>
                 <p>
+                    Current :
                     <span id="current-${i}">0.00</span> A
                 </p>
                 <p>
-                    PF:
+                    PF :
                     <span id="pf-${i}">0.00</span>
                 </p>
                 <p>
+                    Real power :
                     <span id="power-${i}">0</span> W
                 </p>
                 <p>
+                    Apparent power :
                     <span id="apparent-${i}">0</span> VA
                 </p>
             </div>

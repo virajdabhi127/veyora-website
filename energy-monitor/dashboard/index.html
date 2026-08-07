@@ -53,7 +53,7 @@
                 </div>
             </div>
         </nav>
-        <div class="ai-ticker">
+        <div class="ai-ticker" id="ai-ticker">
             <div class="ai-title">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" id="ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand-sparkles-icon lucide-wand-sparkles"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
                 <h2>AI - Insight</h2> 
@@ -84,21 +84,59 @@
                     <span id="lastUpdate">--</span>
                 </div>
             </div>
-            <div class="usage">
+            <!-- <div class="usage">
                 <div class="daily-usage">
-                    <h1>Today's current energy usage</h1>
+                    <h1>Today's current usage of energy</h1>
                     <span id="daily-energy">--</span>
+                    <div>
+                        <span>Usage in ruppees :</span><span>--</span>
+                    </div>
+                    <div>
+                         <span id="yesterday-usage">--</span><span>From yesterday's usage</span>
+                    </div>
                 </div>
                 <div class="monthly-usage">
-                    <h1>Monthly usage till date</h1>
+                    <h1>Monthly usage of energy till date</h1>
                     <span id="monthly-energy">--</span>
+                    <div>
+                        <span>Usage in ruppees :</span><span>--</span>
+                    </div>
+                    <div>
+                        <span id="last-month">--</span><span>From last month</span>
+                    </div>
+                </div>
+            </div> -->
+            <div class="live-values">
+                <div class="live_1">
+                    <div class="live">
+                        <span class="label-live">Total Power :</span><span id="totalRealPower">--</span>
+                    </div>
+                    <div class="live">
+                        <span class="label-live">Energy :</span><span id="energyWh">--</span>
+                    </div>
+                    <div class="live">
+                        <span class="label-live">Total units consumed :</span><span id="energyKWh">--</span>
+                    </div>
+                </div>
+                <div class="live_2">
+                    <div class="live">
+                        <span class="label-live">Total VA :</span><span id="totalApparentPower">--</span>
+                    </div>
+                     <div class="live">
+                        <span class="label-live">Voltage :</span><span id="voltage">--</span>
+                    </div>
+                    <div class="live">
+                        <span class="label-live">Total current :</span><span id="totalCurrent">--</span>
+                    </div>
                 </div>
             </div>
-            <h3 id="voltage">--</h3>
-            <h3 id="totalCurrent">--</h3>
-            <h3 id="energyKWh">--</h3>
-            <h3 id="energyWh">--</h3>
-            <div id="channelContainer"></div>
+            <div class="channels">
+                <div class="channels-header" id="channelsHeader">
+                    <h3>Channels</h3>
+                    <span id="toggleChannels">▼</span>
+                </div>
+                <div class="channels-content" id="channelContainer"></div>
+            </div>
         </div>
     </div>
     <footer>
@@ -129,14 +167,29 @@
     <script src="script.js"></script>
     <script>
         window.addEventListener("scroll", function() {
-        const navbar = document.getElementById("nav_1");
-        if(window.scrollY > 50){
-            navbar.classList.add("scrolled");
-        }
-        else{
-            navbar.classList.remove("scrolled");
-        }
-    });
+            const navbar = document.getElementById("nav_1");
+            const aiTicker = document.getElementById("ai-ticker");
+            if(window.scrollY > 10){
+                navbar.classList.add("scrolled");
+                aiTicker.classList.add("scrolled");
+            }
+            else{
+                navbar.classList.remove("scrolled");
+                aiTicker.classList.remove("scrolled");
+            }
+        });
+        const channels = document.querySelector(".channels");
+        const header = document.getElementById("channelsHeader");
+        const toggle = document.getElementById("toggleChannels");
+        header.addEventListener("click", () => {
+            channels.classList.toggle("open");
+            toggle.textContent = channels.classList.contains("open") ? "▲" : "▼";
+        });
+        const liveValues = document.querySelector(".live-values");
+        const live1 = document.querySelector(".live_1");
+        live1.addEventListener("click", () => {
+            liveValues.classList.toggle("open");
+        });
     </script>
 </body>
 </html>
