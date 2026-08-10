@@ -38,7 +38,106 @@ async function loadDevices() {
     });
     const selectedDevice = devices[0];
     deviceSelect.value = selectedDevice.deviceId;
-    createChannelCards(selectedDevice.channelCount);
+    const channels = await loadDeviceChannels(
+        selectedDevice.deviceId
+    );
+    if (channels) {
+        createChannelCards(channels);
+    }
+    await loadDailyEnergy(selectedDevice.deviceId);
+    await loadMonthlyEnergy(selectedDevice.deviceId);
+}
+
+async function loadDailyEnergy(deviceId) {
+    const response = await apiFetch(`/devices/${deviceId}/daily-energy`);
+    if (!response) return;
+    if (!response.ok) {
+        console.error("Failed to load daily energy");
+        return;
+    }
+    const result = await response.json();
+    if (!result.success) {
+        console.error("Daily energy error:", result.message);
+        return;
+    }
+    const today = Number(result.today);
+    const yesterday = Number(result.yesterday);
+    document.getElementById("daily-energy").textContent = today.toFixed(2);
+    const changeElement = document.getElementById("energyChange");
+    if (yesterday === 0) {
+        changeElement.textContent = "NA";
+        changeElement.className = "energy-change neutral";
+        return;
+    }
+    const percentageChange = ((today - yesterday) / yesterday) * 100;
+    const percentage = Math.abs(percentageChange).toFixed(1);
+    if (percentageChange > 0) {
+        changeElement.textContent = `↑ ${percentage} %`;
+        changeElement.className = "energy-change increase";
+    }
+    else if (percentageChange < 0) {
+        changeElement.textContent = `↓ ${percentage} %`;
+        changeElement.className = "energy-change decrease";
+    }
+    else {
+        changeElement.textContent = "0.0%";
+        changeElement.className = "energy-change neutral";
+    }
+}
+
+async function loadMonthlyEnergy(deviceId) {
+    const response = await apiFetch(
+        `/devices/${deviceId}/monthly-energy`
+    );
+    if (!response) return;
+    if (!response.ok) {
+        console.error("Failed to load monthly energy");
+        return;
+    }
+    const result = await response.json();
+    if (!result.success) {
+        console.error("Monthly energy error:", result.message);
+        return;
+    }
+    const currentMonth = Number(result.currentMonth);
+    const previousMonth = Number(result.previousMonth);
+    document.getElementById("monthly-energy").textContent = currentMonth.toFixed(2);
+    document.getElementById("todayEnergyCost").textContent = `₹ ${Number(result.todayCost).toFixed(2)}`;
+    document.getElementById("monthlyEnergyCost").textContent =`₹ ${Number(result.monthlyCost).toFixed(2)}`;
+    const changeElement = document.getElementById("monthlyEnergyChange");
+
+    if (previousMonth === 0) {
+        changeElement.textContent = "NA";
+        changeElement.className = "energy-change neutral";
+        return;
+    }
+    const percentageChange = ((currentMonth - previousMonth) / previousMonth) * 100;
+    const percentage = Math.abs(percentageChange).toFixed(1);
+    if (percentageChange > 0) {
+        changeElement.textContent = `↑ ${percentage} %`;
+        changeElement.className = "energy-change increase";
+    } else if (percentageChange < 0) {
+        changeElement.textContent = `↓ ${percentage} %`;
+        changeElement.className = "energy-change decrease";
+    } else {
+        changeElement.textContent = "0.0 %";
+        changeElement.className = "energy-change neutral";
+    }
+}
+
+async function loadDeviceChannels(deviceId) {
+    const response = await apiFetch(`/devices/${deviceId}/channels`);
+    if (!response) return null;
+    if (!response.ok) {
+        console.error("Failed to load channel names");
+        return null;
+    }
+    const result = await response.json();
+    if (!result.success) {
+        console.error("Channel error:", result.message);
+        return null;
+    }
+    return result.channels;
 }
 
 async function init() {
@@ -76,14 +175,21 @@ function connectSocket() {
     });
 }
 
-document.getElementById("deviceSelect").addEventListener("change", function () {
+document.getElementById("deviceSelect").addEventListener("change", async function () {
     const deviceId = this.value;
-    const selectedDevice = devices.find(device => device.deviceId === deviceId);
+    const selectedDevice = devices.find(
+        device => device.deviceId === deviceId
+    );
     if (!selectedDevice) {
         return;
     }
-    createChannelCards(selectedDevice.channelCount);
+    const channels = await loadDeviceChannels(deviceId);
+    if (channels) {
+        createChannelCards(channels);
+    }
     socket.emit("selectDevice", deviceId);
+    loadDailyEnergy(deviceId);
+    loadMonthlyEnergy(deviceId);
 });
 
 function updateDashboard(data) {
@@ -116,32 +222,36 @@ function updateDashboard(data) {
     });
 }
 
-function createChannelCards(channelCount) {
+function createChannelCards(channels) {
     const container = document.getElementById("channelContainer");
     container.innerHTML = "";
-    for (let i = 1; i <= channelCount; i++) {
+    channels.forEach(channel => {
         container.innerHTML += `
             <div class="channel-card">
-                <h3>ZONE ${i}</h3>
+                <div class="channel-header">
+                    <h3 id="channel-name-${channel.channel_id}">
+                        ${channel.channel_name}
+                    </h3>
+                </div>
                 <p>
                     Current :
-                    <span id="current-${i}">0.00</span> A
+                    <span id="current-${channel.channel_id}">0.00</span> A
                 </p>
                 <p>
                     PF :
-                    <span id="pf-${i}">0.00</span>
+                    <span id="pf-${channel.channel_id}">0.00</span>
                 </p>
                 <p>
                     Real power :
-                    <span id="power-${i}">0</span> W
+                    <span id="power-${channel.channel_id}">0</span> W
                 </p>
                 <p>
                     Apparent power :
-                    <span id="apparent-${i}">0</span> VA
+                    <span id="apparent-${channel.channel_id}">0</span> VA
                 </p>
             </div>
         `;
-    }
+    });
 }
 
 function setGreeting(username) {
@@ -171,22 +281,6 @@ function hideSplash() {
         splash.remove();
     }, 500);
 }
-
-const userBtn = document.querySelector(".user-btn");
-const userDropdown = document.querySelector(".user-dropdown");
-
-userBtn.addEventListener("click", function (e) {
-    e.stopPropagation();
-    userDropdown.classList.toggle("show");
-});
-
-document.addEventListener("click", function () {
-    userDropdown.classList.remove("show");
-});
-
-userDropdown.addEventListener("click", function (e) {
-    e.stopPropagation();
-});
 
 document.getElementById("logoutBtn").addEventListener("click", async function (e) {
     e.preventDefault();
@@ -234,5 +328,13 @@ setInterval(() => {
         status.querySelector(".status-text").textContent = "Offline";
     }
 }, 2000);
+
+setInterval(() => {
+    const deviceId = document.getElementById("deviceSelect").value;
+    if (deviceId) {
+        loadDailyEnergy(deviceId);
+        loadMonthlyEnergy(deviceId);
+    }
+}, 10000);
 
 init();

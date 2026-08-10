@@ -70,7 +70,7 @@
                     <span>Device :</span>
                     <select id="deviceSelect"></select>
                 </div>
-                <span>|</span>
+                <span class="divider">|</span>
                 <div class="status">
                     <span>Status :</span>
                     <div class="status-indicator online" id="deviceStatus">
@@ -78,38 +78,38 @@
                         <span class="status-text">Online</span>
                     </div>
                 </div>
-                <span>|</span>
+                <span class="divider">|</span>
                 <div class="lastUpdate">
                     <span>Last update :</span>
                     <span id="lastUpdate">--</span>
                 </div>
             </div>
-            <!-- <div class="usage">
+            <div class="usage">
                 <div class="daily-usage">
                     <h1>Today's current usage of energy</h1>
                     <span id="daily-energy">--</span>
-                    <div>
-                        <span>Usage in ruppees :</span><span>--</span>
+                    <div class="daily-cost">
+                        <span>Usage in ruppees :</span><span id="todayEnergyCost">--</span>
                     </div>
-                    <div>
-                         <span id="yesterday-usage">--</span><span>From yesterday's usage</span>
+                    <div class="daily-change">
+                         <span id="energyChange" class="energy-change neutral">--</span><span>from yesterday's usage</span>
                     </div>
                 </div>
                 <div class="monthly-usage">
                     <h1>Monthly usage of energy till date</h1>
                     <span id="monthly-energy">--</span>
-                    <div>
-                        <span>Usage in ruppees :</span><span>--</span>
+                    <div class="monthly-cost">
+                        <span>Usage in ruppees :</span><span id="monthlyEnergyCost">--</span>
                     </div>
-                    <div>
-                        <span id="last-month">--</span><span>From last month</span>
+                    <div class="monthly-change">
+                        <span id="monthlyEnergyChange">--</span><span>from last month</span>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <div class="live-values">
                 <div class="live_1">
                     <div class="live">
-                        <span class="label-live">Total Power :</span><span id="totalRealPower">--</span>
+                        <span id="toggleChannels_1">▼</span><span class="label-live">Total Power :</span><span id="totalRealPower">--</span>
                     </div>
                     <div class="live">
                         <span class="label-live">Energy :</span><span id="energyWh">--</span>
@@ -132,8 +132,8 @@
             </div>
             <div class="channels">
                 <div class="channels-header" id="channelsHeader">
-                    <h3>Channels</h3>
-                    <span id="toggleChannels">▼</span>
+                    <h3>Zones</h3>
+                    <span id="toggleChannels_2">▼</span>
                 </div>
                 <div class="channels-content" id="channelContainer"></div>
             </div>
@@ -178,17 +178,31 @@
                 aiTicker.classList.remove("scrolled");
             }
         });
+        const userBtn = document.querySelector(".user-btn");
+        const userDropdown = document.querySelector(".user-dropdown");
+        userBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            userDropdown.classList.toggle("show");
+        });
+        document.addEventListener("click", function () {
+            userDropdown.classList.remove("show");
+        });
+        userDropdown.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
         const channels = document.querySelector(".channels");
         const header = document.getElementById("channelsHeader");
-        const toggle = document.getElementById("toggleChannels");
+        const toggle_2 = document.getElementById("toggleChannels_2");
         header.addEventListener("click", () => {
             channels.classList.toggle("open");
-            toggle.textContent = channels.classList.contains("open") ? "▲" : "▼";
+            toggle_2.textContent = channels.classList.contains("open") ? "▲" : "▼";
         });
         const liveValues = document.querySelector(".live-values");
         const live1 = document.querySelector(".live_1");
+        const toggle_1 = document.getElementById("toggleChannels_1");
         live1.addEventListener("click", () => {
             liveValues.classList.toggle("open");
+            toggle_1.textContent = liveValues.classList.contains("open") ? "▲" : "▼";
         });
     </script>
 </body>

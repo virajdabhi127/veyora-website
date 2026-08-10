@@ -217,8 +217,6 @@ body{
 
 #ai-ticker.scrolled{
     background: rgba(5,10,25,0.95);
-    backdrop-filter: blur(12px);
-    box-shadow: 0 o 20px rgba(0,0,0,0.2);
 }
 
 .ai-title{
@@ -289,6 +287,12 @@ body{
     padding-bottom: 1rem;
     border-bottom:  0.5px solid #464545;
 }
+
+#deviceSelect option{
+        background-color: rgba(5,10,25,0.95);
+        color: #fff;
+        font-size: 1.5rem !important;
+    }
 
 .device, .status, .lastUpdate{
     display: flex;
@@ -372,8 +376,25 @@ body{
     border-radius: 1rem;
 }
 
+.monthly-change, .daily-change, .daily-cost, .monthly-cost{
+    display: flex;
+    gap: 1rem;
+}
+
 .usage span{
-    font-size: 1.5rem;
+    font-size: 1.75rem;
+}
+
+.energy-change.increase {
+    color: #e53935; 
+}
+
+.energy-change.decrease {
+    color: #22c55e;
+}
+
+.energy-change.neutral {
+    color: #777;
 }
 
 .live-values{
@@ -392,19 +413,17 @@ body{
     justify-content: space-around;
 }
 
-.live_2{
-    display: flex;
-    justify-content: space-around;
-}
-
 .live{
     width: 25rem;
     display: flex;
     gap: 1rem;
     font-size: 1.75rem;
+    cursor: pointer;
 }
 
 .live_2 {
+    display: flex;
+    justify-content: space-around;
     max-height: 0;
     overflow: hidden;
     opacity: 0;
@@ -419,11 +438,7 @@ body{
 .live-values.open .live_2 {
     max-height: 300px;
     opacity: 1;
-    margin-top: 2rem; /* or 16px */
-}
-
-.live_1 {
-    cursor: pointer;
+    margin-top: 2rem;
 }
 
 .channels{
@@ -456,7 +471,7 @@ body{
 }
 
 .channels.open .channels-content {
-    max-height: 20rem;
+    max-height: none;
 }
 
 .channel-card{
@@ -607,16 +622,118 @@ footer{
         position: fixed;
     }
 
-    .ai-ticker, .ai-title{
+    .ai-title h2{
         font-size: 2rem;
     }
 
     .main{
         width: 90%;
+        display: flex;
+        overflow-x: hidden;
+        overflow-y: hidden;
+    }
+
+    .dash_head{
+        display: grid;
+        grid-template-columns: auto auto;
+        row-gap: 1rem;
+    }
+
+    #deviceSelect{
+        font-size: 1.25rem !important;
+    }
+
+    #deviceSelect option{
+        background-color: rgba(5,10,25,0.95);
+        color: #fff;
+        font-size: 1.25rem !important;
+    }
+
+    .divider{
+        display: none;
     }
 
     .dash_head span, #deviceSelect, .live-values span{
         font-size: 1.25rem;
+    }
+
+    .usage{
+        width: 100%;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .usage span{
+        font-weight: 200;
+        font-size: 1.25rem;
+    }
+
+    .daily-usage, .monthly-usage{
+        width: 100%;
+        display: flex;
+        gap: 1.5rem;
+    }
+
+    .daily-usage h1, .monthly-usage h1{
+        font-weight: 400;
+        font-size: 1.5rem;
+    }
+
+    .live-values{
+        width: 100%;
+        display: flex;
+        margin-top: 0;
+        padding: 1.5rem 0;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+    }
+
+    #toggleChannels_1{
+        display: none;
+    }
+
+    .live_1, .live_2{
+        width: 14rem;
+        display: flex;
+        gap: 1rem;
+        flex-direction: column;
+    }
+
+    .live_1{
+        width: 20rem;
+    }
+
+    .live_2, .live-values.open .live_2 {
+        max-height: none;
+        opacity: 1;
+        overflow: visible;
+        margin-top: 0;
+        transition: none;
+    }
+
+    .channels h3{
+        font-size: 1.5rem;
+        font-weight: 400;
+    }
+
+    .channels-content p, .channels-content span, #toggleChannels_2{
+        font-size: 1.25rem;
+    }
+
+    .channels-content{
+        display: flex;
+        flex-direction: column;
+        justify-self: center;
+        gap: 1rem;
+    }
+
+    .logo_text{
+        font-size: 1.5rem;
+    }
+
+    .rights{
+        font-size: 1rem;
     }
 
     #splashLogo{
@@ -629,5 +746,10 @@ footer{
 
     #splashUsername{
         font-size:28px;
+    }
+
+    img{
+        height: 1rem;
+        width: 1rem;
     }
 }

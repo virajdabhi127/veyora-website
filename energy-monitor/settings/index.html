@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="icon" type="image/x-icon" href="../../images/favicon.ico">
+    <link rel="shortcut icon" href="../../images/favicon.ico">
+    <title>Settings</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+    <link rel="stylesheet" href="stylesheet.css">
+</head>
+<body>
+    <div id="head_1">
+        <nav id="nav_1">
+            <a href="../../index.html" class="logo">
+                <img src ="../../images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
+            </a>
+            <div class="link_1">
+                <div class="user-menu">
+                    <button class="user-btn">
+                        <svg xmlns="http://www.w3.org/2000/svg" width="30" height="30" color="white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-user-round-icon lucide-user-round"><circle cx="12" cy="8" r="5"/><path d="M20 21a8 8 0 0 0-16 0"/></svg>
+                        <h3 id="userid">User Id</h3>
+                    </button>
+                    <div class="user-dropdown">
+                        <div class="profile-header">
+                            <div class="profile-avatar" id="profileAvatar"></div>
+                            <h3 id="username">User Name</h3>
+                        </div>
+                        <div class="menu-list">
+                            <a href="#" class="menu-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" color="white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt-icon lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="4"/></svg>
+                                <span>Settings</span>
+                            </a>
+                            <a href="#" class="menu-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" color="white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-question-mark-icon lucide-circle-question-mark"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
+                                <span>Help & Support</span>
+                            </a>
+                            <a href="../../about/index.html" class="menu-item">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" color="white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-book-open-icon lucide-book-open"><path d="M12 5v16"/><path d="M20.001 19A2 2 0 0022 17V5a2 2 0 00-1.999-2L16 3.002A5 5 0 0012 5a5 5 0 00-4-2H4a2 2 0 00-2 2v12a2 2 0 001.999 2H8a5 5 0 014 2 5 5 0 014-2z"/></svg>
+                                <span>About Veyora</span>
+                            </a>
+                            <div class="menu-divider"></div>
+                            <a href="#" id="logoutBtn" class="menu-item logout">
+                                <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-log-out-icon lucide-log-out"><path d="m16 17 5-5-5-5"/><path d="M21 12H9"/><path d="M9 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h4"/></svg>
+                                <span>Logout</span>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </nav>
+    </div>
+    <script>
+         window.addEventListener("scroll", function() {
+            const navbar = document.getElementById("nav_1");
+            const aiTicker = document.getElementById("ai-ticker");
+            if(window.scrollY > 10){
+                navbar.classList.add("scrolled");
+                aiTicker.classList.add("scrolled");
+            }
+            else{
+                navbar.classList.remove("scrolled");
+                aiTicker.classList.remove("scrolled");
+            }
+        });
+        const userBtn = document.querySelector(".user-btn");
+        const userDropdown = document.querySelector(".user-dropdown");
+        userBtn.addEventListener("click", function (e) {
+            e.stopPropagation();
+            userDropdown.classList.toggle("show");
+        });
+        document.addEventListener("click", function () {
+            userDropdown.classList.remove("show");
+        });
+        userDropdown.addEventListener("click", function (e) {
+            e.stopPropagation();
+        });
+    </script>
+    <script src="../../api.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
