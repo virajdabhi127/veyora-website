@@ -220,9 +220,7 @@ body{
 }
 
 .ai-title{
-    margin-left: 1rem;
-    margin-right: 1.5rem;
-    min-width:180px;
+    margin: 0 2rem;
     height:100%;
     color: #fff;
     display:flex;
@@ -236,6 +234,7 @@ body{
     flex:1;
     overflow:hidden;
     white-space:nowrap;
+    margin-right: 2rem;
 }
 
 .ticker-text{
@@ -352,7 +351,7 @@ body{
 }
 
 .lastUpdate{
-    width: 18rem;
+    width: 18.5rem;
 }
 
 .usage {
@@ -371,9 +370,14 @@ body{
     padding: 1rem 1.75rem;
     display: flex;
     flex-direction: column;
-    gap: 5rem;
+    gap: 3rem;
     background: #0F172A;
     border-radius: 1rem;
+}
+
+.change{
+    display: flex;
+    gap: 1rem;
 }
 
 .monthly-change, .daily-change, .daily-cost, .monthly-cost{
@@ -622,8 +626,24 @@ footer{
         position: fixed;
     }
 
+    .ai-title{
+        margin: 0 2rem;
+    }
     .ai-title h2{
-        font-size: 2rem;
+        font-size: 1.5rem;
+    }
+
+    .ai-title svg{
+        width: 2rem;
+        height: 2rem;
+    }
+
+    .ticker-wrapper{
+        margin-right: 2rem;
+    }
+
+    .ticker-text{
+        font-size: 1.25rem;
     }
 
     .main{
@@ -693,9 +713,8 @@ footer{
         display: flex;
         margin-top: 0;
         padding: 1.5rem 0;
-        flex-direction: row;
-        align-items: center;
-        justify-content: space-between;
+        gap: 1rem;
+        flex-direction: column;
     }
 
     #toggleChannels_1{
@@ -703,25 +722,16 @@ footer{
     }
 
     .live_1, .live_2{
-        width: 18rem;
+        width: 100%;
         display: flex;
         gap: 1rem;
         flex-direction: column;
     }
-    .live_2{
-        width: 14rem;
-    }
-    .live1{
+    .live1, .live2{
         display: flex;
-        width: 18rem;
+        width: 100%;
         gap: 0.5rem;
     }
-    .live2{
-        display: flex;
-        width: 14rem;
-        gap: 0.5rem;
-    }
-
     .live_2, .live-values.open .live_2 {
         max-height: none;
         opacity: 1;
@@ -777,5 +787,9 @@ footer{
     .user-btn svg{
         width: 2rem;
         height: 2rem;
+    }
+    #splashLogo{
+        width: 7.5rem;
+        height: 7.5rem;
     }
 }

@@ -25,7 +25,7 @@
                     <a href="#" class="project-link">PROJECTS</a>
                      <div class="dropdown-content">
                         <a href="../energy-monitor/index.html">Energy Monitoring System</a>
-                        <a href="#">Home Automation</a>
+                        <a href="#" onclick="development()">Home Automation</a>
                     </div>
                 </div>
                 <a href="#contact">CONTACT</a>
@@ -134,8 +134,8 @@
                 <h2>Node.js</h2>
             </div>
             <div class="tech_card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/sqlite/sqlite-original.svg" alt="SQLite">
-                <h2>SQLite</h2>
+                <img src= "https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg" alt="SQLite">
+                <h2>PostgreSQL</h2>
             </div>
             <div class="tech_card">
                 <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
@@ -165,7 +165,7 @@
                 <h3>Projects</h3>
                 <ul>
                     <li><a href="../energy-monitor/index.html">Energy Monitoring System</a></li>
-                    <li><a href="#">Home Automation</a></li>
+                    <li><a href="#" onclick="development()">Home Automation</a></li>
                 </ul>
             </div>
             <div class="footer_col">
@@ -210,8 +210,14 @@
         }
         const menuToggle = document.querySelector(".menu-toggle");
         const navLinks = document.querySelector(".link_1");
-        menuToggle.addEventListener("click",()=>{
+        menuToggle.addEventListener("click", (e) => {
             navLinks.classList.toggle("active");
+            e.stopPropagation(); // Prevent immediate closing
+        });
+        document.addEventListener("click", (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove("active");
+            }
         });
         const dropdowns = document.querySelectorAll('.dropdown');
         dropdowns.forEach((dropdown) => {
@@ -228,17 +234,18 @@
                 }
             });
         });
-    </script>
-    <script>
-        window.addEventListener("scroll", function() {
-        const navbar = document.getElementById("nav_1");
-        if(window.scrollY > 50){
-            navbar.classList.add("scrolled");
+         window.addEventListener("scroll", function() {
+            const navbar = document.getElementById("nav_1");
+            if(window.scrollY > 50){
+                navbar.classList.add("scrolled");
+            }
+            else{
+                navbar.classList.remove("scrolled");
+            }
+        });
+         function development() {
+            alert("Page is currently in development.");
         }
-        else{
-            navbar.classList.remove("scrolled");
-        }
-    });
     </script>
 </body>
 </html>

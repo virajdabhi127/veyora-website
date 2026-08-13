@@ -632,3 +632,9 @@ html{
          height: 2rem;
     }
 }
+
+@media (max-width:360px) {
+       .tech_grid{
+        grid-template-columns:repeat(3,1fr);
+    }
+}

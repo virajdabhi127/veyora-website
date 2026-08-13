@@ -31,11 +31,11 @@
                             <h3 id="username">User Name</h3>
                         </div>
                         <div class="menu-list">
-                            <a href="#" class="menu-item">
+                            <a href="#" class="menu-item" onclick="development()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" color="white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-bolt-icon lucide-bolt"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/><circle cx="12" cy="12" r="4"/></svg>
                                 <span>Settings</span>
                             </a>
-                            <a href="#" class="menu-item">
+                            <a href="#" class="menu-item" onclick="development()">
                                 <svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" color="white" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-circle-question-mark-icon lucide-circle-question-mark"><circle cx="12" cy="12" r="10"/><path d="M9.09 9a3 3 0 0 1 5.83 1c0 2-3 3-3 3"/><path d="M12 17h.01"/></svg>
                                 <span>Help & Support</span>
                             </a>
@@ -87,7 +87,9 @@
             <div class="usage">
                 <div class="daily-usage">
                     <h1>Today's current usage of energy</h1>
-                    <span id="daily-energy">--</span>
+                    <div class="change">
+                        <span id="daily-energy">--</span><span>units consumed</span>
+                    </div>
                     <div class="daily-cost">
                         <span>Usage in ruppees :</span><span id="todayEnergyCost">--</span>
                     </div>
@@ -97,7 +99,9 @@
                 </div>
                 <div class="monthly-usage">
                     <h1>Monthly usage of energy till date</h1>
-                    <span id="monthly-energy">--</span>
+                    <div class="change">
+                        <span id="monthly-energy">--</span><span>units consumed</span>
+                    </div>
                     <div class="monthly-cost">
                         <span>Usage in ruppees :</span><span id="monthlyEnergyCost">--</span>
                     </div>
@@ -132,7 +136,7 @@
             </div>
             <div class="channels">
                 <div class="channels-header" id="channelsHeader">
-                    <h3>Zones</h3>
+                    <h3>Channels</h3>
                     <span id="toggleChannels_2">▼</span>
                 </div>
                 <div class="channels-content" id="channelContainer"></div>
@@ -204,6 +208,9 @@
             liveValues.classList.toggle("open");
             toggle_1.textContent = liveValues.classList.contains("open") ? "▲" : "▼";
         });
+        function development() {
+            alert("Page is currently in development.");
+        }
     </script>
 </body>
 </html>

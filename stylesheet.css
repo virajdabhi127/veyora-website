@@ -314,11 +314,11 @@ hr{
     margin-bottom: 5rem;
 }
 
- .solutions h1::after{
+ /* .solutions h1::before{
     content:"";
     display:block;
-    width:32rem;
-    height:5px;
+    width:10rem;
+    height:3px;
     margin:1rem auto;
     border-radius:10px;
     background: linear-gradient(
@@ -338,7 +338,7 @@ hr{
     100%{
         background-position: -200% 0;
     }
-}
+} */
 
 .sol_cont{
     width: 100%;
@@ -760,7 +760,7 @@ hr{
         transform: translateY(-50%);
     }
     .hero-content h1{
-        font-size: 3.2rem;
+        font-size: 2.75rem;
         line-height: 1.1;
     }
     .hero-content p{
@@ -789,7 +789,7 @@ hr{
         width: 100%;
     }
     .innovation_text h1{
-        font-size: 3.2rem;
+        font-size: 2.75rem;
         line-height: 1.2;
     }
     .innovation_text p{
@@ -808,7 +808,7 @@ hr{
         padding: 0 2rem;
     }
     .solutions h1, .why_choose h1{
-        font-size: 3.2rem;
+        font-size: 2.75rem;
         line-height: 1.2;
     }
     .sol_cont{
@@ -869,7 +869,7 @@ hr{
     }
     .irrigation, .home{
         width: 100%;
-        min-height: 35rem; /* or 40rem if needed */
+        min-height: 37rem; /* or 40rem if needed */
         height: auto;
         overflow: hidden;
     }
@@ -877,5 +877,8 @@ hr{
         width:15rem;
         padding: 12px;
         font-size: 1.25rem;
+    }
+    hr{
+        display: none;
     }
 }

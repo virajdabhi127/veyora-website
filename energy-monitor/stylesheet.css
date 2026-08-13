@@ -591,12 +591,9 @@ hr{
     .monitor-image{
         width: 60%;
     }
-    .working{
-        margin: 0 2rem;
-        margin-bottom: 3rem;
-    }
      .works-grid{
         grid-template-columns: repeat(2,1fr);
+        margin: 0 2rem;
     }
     .working-content{
         margin: 2rem 1.25rem;
@@ -633,5 +630,8 @@ hr{
     .dashboard-btn{
         font-size: 1rem;
         padding: 1rem 1.5rem;
+    }
+    hr{
+        display: none;
     }
 }

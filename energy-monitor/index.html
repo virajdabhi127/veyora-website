@@ -25,7 +25,7 @@
                     <a href="#" class="project-link">PROJECTS</a>
                      <div class="dropdown-content">
                         <a href="index.html" class="active">Energy Monitoring System</a>
-                        <a href="#">Home Automation</a>
+                        <a href="#" onclick="development()">Home Automation</a>
                     </div>
                 </div>
                 <a href="#contact">CONTACT</a>
@@ -170,7 +170,7 @@
                 <h3>Projects</h3>
                 <ul>
                     <li><a href="index.html">Energy Monitoring System</a></li>
-                    <li><a href="#">Home Automation</a></li>
+                    <li><a href="#" onclick="development()">Home Automation</a></li>
                 </ul>
             </div>
             <div class="footer_col">
@@ -226,8 +226,14 @@
         }
         const menuToggle = document.querySelector(".menu-toggle");
         const navLinks = document.querySelector(".link_1");
-        menuToggle.addEventListener("click",()=>{
+        menuToggle.addEventListener("click", (e) => {
             navLinks.classList.toggle("active");
+            e.stopPropagation(); // Prevent immediate closing
+        });
+        document.addEventListener("click", (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove("active");
+            }
         });
         const dropdowns = document.querySelectorAll('.dropdown');
         dropdowns.forEach((dropdown) => {
@@ -244,6 +250,9 @@
                 }
             });
         });
+        function development() {
+            alert("Page is currently in development.");
+        }
     </script>
 </body>
 </html>
