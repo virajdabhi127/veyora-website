@@ -8,7 +8,7 @@ const socketUrl = API;
 async function checkAuth() {
     const response = await apiFetch("/auth/me");
      if (!response || response.status === 401) {
-        window.location.replace("../index.html");
+        window.location.replace("/login/");
         return null;
     }
     return await response.json();
@@ -108,6 +108,7 @@ async function loadMonthlyEnergy(deviceId) {
 
     if (previousMonth === 0) {
         changeElement.textContent = "NA";
+        document.getElementById("lastMonth").textContent = "";
         changeElement.className = "energy-change neutral";
         return;
     }
@@ -290,7 +291,7 @@ document.getElementById("logoutBtn").addEventListener("click", async function (e
     });
     window.close();
     if (!window.closed) {
-        window.location.replace("../index.html");
+        window.location.replace("/login/");
     }
 });
 

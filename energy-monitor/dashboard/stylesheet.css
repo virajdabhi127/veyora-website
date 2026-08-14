@@ -656,7 +656,6 @@ footer{
     .dash_head{
         display: grid;
         grid-template-columns: auto auto;
-
         justify-content: space-between;
         row-gap: 1rem;
     }
@@ -665,7 +664,7 @@ footer{
         width: 12.5rem;
     }
     .lastUpdate{
-        width: 13rem;
+        width: 14rem;
     }
 
     #deviceSelect{
@@ -726,12 +725,15 @@ footer{
         display: flex;
         gap: 1rem;
         flex-direction: column;
+
     }
+
     .live1, .live2{
         display: flex;
         width: 100%;
         gap: 0.5rem;
     }
+
     .live_2, .live-values.open .live_2 {
         max-height: none;
         opacity: 1;
@@ -784,10 +786,12 @@ footer{
     #userid{
         font-size: 1.5rem;
     }
+
     .user-btn svg{
         width: 2rem;
         height: 2rem;
     }
+    
     #splashLogo{
         width: 7.5rem;
         height: 7.5rem;

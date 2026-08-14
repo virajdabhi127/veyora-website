@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="icon" type="image/x-icon" href="../images/favicon.ico">
-    <link rel="shortcut icon" href="../images/favicon.ico">
+    <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
+    <link rel="shortcut icon" href="/images/favicon.ico">
     <title>Welcome to Veyora</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="/stylesheet.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -16,7 +16,7 @@
 <body>
     <div id="splash-screen">
         <div class="splash-content">
-            <img src="images/Veyora.png" alt="Veyora Logo">
+            <img src="/images/Veyora.png" alt="Veyora Logo">
             <h2>Veyora</h2>
             <p>Engineering Intelligent Automation</p>
             <div class="loader">
@@ -26,20 +26,20 @@
     </div>
     <div id="head_1">
         <nav id="nav_1">
-            <a href="index.html" class="logo">
-                <img src ="images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
+            <a href="/" class="logo">
+                <img src ="/images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
             </a>
             <div class="link_1">
-                <a href="index.html" class="active">HOME</a>
+                <a href="/" class="active">HOME</a>
                 <div class="dropdown">
                     <a href="#" class="project-link">PROJECTS</a>
                      <div class="dropdown-content">
-                        <a href="energy-monitor/index.html">Energy Monitoring System</a>
+                        <a href="/energy-monitor">Energy Monitoring System</a>
                         <a href="#" onclick="development()">Home Automation</a>
                     </div>
                 </div>
                 <a href="#contact">CONTACT</a>
-                <a href="about/index.html#hero-slider">ABOUT US</a>
+                <a href="/about">ABOUT US</a>
             </div>
             <div class="menu-toggle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
@@ -51,29 +51,29 @@
             <div class="swiper-wrapper">
                 <!-- Slide 1 -->
                 <div class="swiper-slide slide">
-                    <img src="images/wallpaper.png">
+                    <img src="/images/wallpaper.png">
                     <div class="hero-content">
                         <h1>Innovating The Future Of Smarter Homes</h1>
                         <p>Veyora develops intelligent IoT solutions that connect devices, monitor energy, and automate modern homes through one unified platform.</p>
-                        <a href="about/index.html" class="hero-btn">Explore Veyora</a>
+                        <a href="/about" class="hero-btn">Explore Veyora</a>
                     </div>
                 </div>
                 <!-- Slide 2 -->
                 <div class="swiper-slide slide">
-                    <img src="images/wallpaper_1.png">
+                    <img src="/images/wallpaper_1.png">
                     <div class="hero-content">
                         <h1>Smart Energy Monitoring System</h1>
                         <p>Monitor electricity in real time with accurate analytics, instant insights, and intelligent energy management.</p>
-                        <a href="energy-monitor/index.html" class="hero-btn">Explore Product</a>
+                        <a href="/energy-monitor" class="hero-btn">Explore Product</a>
                     </div>
                 </div>
                 <!-- Slide 3 -->
                 <div class="swiper-slide slide">
-                    <img src="images/wallpaper_2.png">
+                    <img src="/images/wallpaper_2.png">
                     <div class="hero-content">
                         <h1>Connected Living</h1>
                         <p>Control lighting, appliances, security, and more from anywhere with the Veyora ecosystem.</p>
-                        <a href="#" class="hero-btn">Explore Solutions</a>
+                        <a href="#solutions" class="hero-btn">Explore Solutions</a>
                     </div>
                 </div>
             </div>
@@ -97,11 +97,11 @@
             </p>
         </div>
         <div class="innovation_img">
-            <img src="images/dashboard.png" alt="Veyora Dashboard">
+            <img src="/images/dashboard.png" alt="Veyora Dashboard">
         </div>
     </section>
     <hr>
-    <div class="solutions">
+    <div class="solutions" id="solutions">
         <h1>Core solutions</h1>
         <div class="sol_cont">
             <div class="sec irrigation left-card" id="solutions-card">
@@ -183,15 +183,15 @@
             <div class="footer_col">
                 <h3>Company</h3>
                 <ul>
-                    <li><a href="about/index.html#hero-slider">About Veyora</a></li>
-                    <li><a href="about/index.html#our_expertise">Our Expertise</a></li>
-                    <li><a href="about/index.html#tech">Technologies Veyora use</a></li>
+                    <li><a href="/about">About Veyora</a></li>
+                    <li><a href="/about#our_expertise">Our Expertise</a></li>
+                    <li><a href="/about#tech">Technologies Veyora use</a></li>
                 </ul>
             </div>
             <div class="footer_col">
                 <h3>Projects</h3>
                 <ul>
-                    <li><a href="energy-monitor/index.html">Energy Monitoring System</a></li>
+                    <li><a href="/energy-monitor">Energy Monitoring System</a></li>
                     <li><a href="#" onclick="development()">Home Automation</a></li>
                 </ul>
             </div>
@@ -217,8 +217,8 @@
             </div>
         </div>
         <div class="footer_bottom">
-            <a href="index.html" class="foot_logo">
-                <img src="images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
+            <a href="/" class="foot_logo">
+                <img src="/images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
             </a>
             <span class="rights">
                 © 2026 Veyora. All Rights Reserved.

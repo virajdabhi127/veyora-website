@@ -1,3 +1,5 @@
 .vscode/
 README.md
 Render Veyora.session.sql
+# Local Netlify folder
+.netlify

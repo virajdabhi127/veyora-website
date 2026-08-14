@@ -6,7 +6,7 @@
     <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
     <link rel="shortcut icon" href="/images/favicon.ico">
     <title>LOGIN</title>
-    <link rel="stylesheet" href="stylesheet.css">
+    <link rel="stylesheet" href="/login/stylesheet.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@100..900&family=Work+Sans:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
@@ -16,11 +16,11 @@
 <body>
     <div id="head_1">
         <nav id="nav_1">
-            <a href="../index.html" class="logo">
-                <img src ="../images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
+            <a href="/" class="logo">
+                <img src ="/images/Veyora.png" alt="veyora-logo"><span class="logo_text">Veyora</span>
             </a>
             <div class="link_1">
-                <a href="../index.html">HOME</a>
+                <a href="/">HOME</a>
             </div>
         </nav>
     </div>
@@ -46,7 +46,7 @@
             <button type="submit" class="btn" id="loginBtn">Login</button>
         </div>
     </form>
-    <script src="../api.js"></script>
+    <script src="/api.js"></script>
     <script>
         document.getElementById("loginForm").addEventListener("submit", async function (e) {
         e.preventDefault();
@@ -65,7 +65,7 @@
             const data = await response.json();
             if (response.ok) {
                 if (data.user.role === "admin") {
-                    window.location.replace("../admin/index.html");
+                    window.location.replace("/admin");
                     return;
                 }
                 const deviceResponse = await apiFetch("/devices");
@@ -80,13 +80,13 @@
                 const productCode = deviceData.devices[0].productCode;
                 switch (productCode) {
                     case "EM":
-                        window.location.replace("../energy-monitor/dashboard/index.html");
+                        window.location.replace("/energy-monitor/dashboard");
                         break;
                     case "HA":
-                        window.location.replace("../home-automation/dashboard/index.html");
+                        window.location.replace("/home-automation/dashboard");
                         break;
                     case "EM_HA":
-                        window.location.replace("../combined/dashboard/index.html");
+                        window.location.replace("/combined/dashboard");
                         break;
                     default:
                         alert("No valid product assigned.");

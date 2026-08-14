@@ -290,7 +290,6 @@ hr{
     max-width:120rem;
     margin:7rem auto;
     display:flex;
-    align-items:center;
     gap:6rem;
 }
 
@@ -314,7 +313,7 @@ hr{
     display: flex;
     background-color: rgba(5,10,25,0.95);
     border-radius: 1rem;
-    padding: 1rem 1.5rem;
+    padding: 1rem 1rem;
     flex:1;
 }
 
