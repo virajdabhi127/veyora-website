@@ -93,6 +93,14 @@
                     <div class="daily-cost">
                         <span>Usage in ruppees :</span><span id="todayEnergyCost">--</span>
                     </div>
+                    <div class="load">
+                        <div class="load-values">
+                            <span>Peak load :</span><span id="peakLoad">--</span>
+                        </div>
+                        <div class="load-values">
+                            <span>Base load :</span><span id="baseLoad">--</span>
+                        </div>
+                    </div>
                     <div class="daily-change">
                          <span id="energyChange" class="energy-change neutral">--</span><span>from yesterday's usage</span>
                     </div>
@@ -141,6 +149,41 @@
                 </div>
                 <div class="channels-content" id="channelContainer"></div>
             </div>
+            <div class="load-curve-card">
+                <div class="daily-curve-card">
+                    <div class="load-curve-header">
+                        <h3>Today's Load Curve</h3>
+                        <div class="load-curve-controls">
+                            <label for="loadInterval">Time interval:</label>
+                            <select id="loadInterval">
+                                <option value="30">30 min</option>
+                                <option value="60">1 hour</option>
+                                <option value="120">2 hours</option>
+                                <option value="240" selected>4 hours</option>
+                                <option value="360">6 hours</option>
+                                <option value="720">12 hours</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="load-curve-chart-wrapper">
+                        <div class="load-curve-chart">
+                            <canvas id="loadCurveChart"></canvas>
+                        </div>
+                    </div>
+                </div>
+                <div class="monthly-curve-card">
+                    <div class="monthly-energy-card">
+                        <div class="monthly-energy-header">
+                            <h3>Monthly Energy</h3>
+                        </div>
+                        <div class="monthly-energy-chart-wrapper">
+                            <div class="monthly-energy-chart">
+                                <canvas id="monthlyEnergyChart"></canvas>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
     <footer>
@@ -169,6 +212,7 @@
     <script src="/api.js"></script>
     <script src="https://api.veyora.in/socket.io/socket.io.js"></script>
     <script src="/energy-monitor/dashboard/script.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <script>
         window.addEventListener("scroll", function() {
             const navbar = document.getElementById("nav_1");

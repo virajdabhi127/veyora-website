@@ -301,7 +301,7 @@ hr{
 
 .solutions{
     max-width: 120rem;
-    margin: 6rem auto;
+    margin: 3rem auto;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -311,10 +311,10 @@ hr{
     text-align: center;
     font-size: 5rem;
     font-weight: 700;
-    margin-bottom: 5rem;
+    margin-bottom: 2rem;
 }
 
- /* .solutions h1::before{
+ .solutions h1::after{
     content:"";
     display:block;
     width:10rem;
@@ -338,7 +338,7 @@ hr{
     100%{
         background-position: -200% 0;
     }
-} */
+}
 
 .sol_cont{
     width: 100%;
@@ -832,8 +832,7 @@ hr{
         grid-template-columns: 1fr;
     }
     .why_choose{
-        margin: 0 1.5rem;
-        margin-bottom: 2rem;
+        margin: 2rem 1.5rem;
     }
     .box h2{
         font-size: 2rem;
@@ -878,7 +877,10 @@ hr{
         padding: 12px;
         font-size: 1.25rem;
     }
-    hr{
-        display: none;
+}
+
+@media (max-width:360px){
+    .sol_cont{
+        height: 87rem;
     }
 }

@@ -1,6 +1,9 @@
 let splashVisible = true;
 let devices = [];
 let latestData = null;
+let loadCurveChart = null;
+let selectedLoadInterval = 240;
+let monthlyEnergyChart = null;
 let lastPacketTime = 0;
 
 const socketUrl = API;
@@ -46,6 +49,9 @@ async function loadDevices() {
     }
     await loadDailyEnergy(selectedDevice.deviceId);
     await loadMonthlyEnergy(selectedDevice.deviceId);
+    await loadLoadHistory(selectedDevice.deviceId);
+    await loadDailyLoad(selectedDevice.deviceId);
+    await loadMonthlyLoad(selectedDevice.deviceId);
 }
 
 async function loadDailyEnergy(deviceId) {
@@ -139,6 +145,274 @@ async function loadDeviceChannels(deviceId) {
         return null;
     }
     return result.channels;
+}
+
+async function loadLoadHistory(deviceId) {
+    try {
+        const response = await apiFetch(`/devices/${deviceId}/load-history`);
+        if (!response.ok) {
+            throw new Error(`HTTP error: ${response.status}`);
+        }
+        const data = await response.json();
+        if (!data.success) {
+            throw new Error("Failed to load load history");
+        }
+        const chartData = data.history.map(item => {
+            const time = new Date(item.recorded_at);
+            const minutes =
+                time.getHours() * 60 +
+                time.getMinutes() +
+                time.getSeconds() / 60;
+            return {
+                time: minutes,
+                power: Number(item.real_power) / 1000
+            };
+        });
+        const ctx = document.getElementById("loadCurveChart");
+        if (loadCurveChart) {
+            loadCurveChart.destroy();
+        }
+        loadCurveChart = new Chart(ctx, {
+            type: "line",
+            data: {
+                datasets: [{
+                    label: "Power (kW)",
+                    data: chartData,
+                    tension: 0.3,
+                    pointRadius: 0,
+                    borderWidth: 2,
+                    fill: false
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                interaction: {
+                    mode: "nearest",
+                    intersect: false,
+                    includeInvisible: false
+                },
+                onClick: function(event) {
+                    const chart = this;
+                    const elements = chart.getElementsAtEventForMode(
+                        event,
+                        "nearest",
+                        {
+                            intersect: false
+                        },
+                        true
+                    );
+                    if (!elements.length) return;
+                    const element = elements[0];
+                    chart.setActiveElements([{
+                        datasetIndex: element.datasetIndex,
+                        index: element.index
+                    }]);
+                    chart.tooltip.setActiveElements(
+                        [{
+                            datasetIndex: element.datasetIndex,
+                            index: element.index
+                        }],
+                        {
+                            x: element.element.x,
+                            y: element.element.y
+                        }
+                    );
+                    chart.update();
+                },
+                parsing: {
+                    xAxisKey: "time",
+                    yAxisKey: "power"
+                },
+                plugins: {
+                    legend: {
+                        display: false
+                    },
+                    tooltip: {
+                        callbacks: {
+                            title: function(context) {
+                                const minutes = context[0].parsed.x;
+                                const hours = Math.floor(minutes / 60);
+                                const mins = Math.floor(minutes % 60);
+                                return `Time: ${String(hours).padStart(2, "0")}:${String(mins).padStart(2, "0")}`;
+                            },
+                            label: function(context) {
+                                return `Power (kW): ${Number(context.parsed.y).toFixed(2)}`;
+                            }
+                        }
+                    }
+                },
+                scales: {
+                    x: {
+                        type: "linear",
+                        min: 0,
+                        max: 1439.833,
+                        title: {
+                            display: true,
+                            text: "Time"
+                        },
+                        ticks: {
+                            stepSize: selectedLoadInterval,
+                            autoSkip: false,
+                            callback: function(value) {
+                                const totalMinutes = Math.floor(value);
+                                const hours = Math.floor(totalMinutes / 60);
+                                const minutes = totalMinutes % 60;
+                                return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
+                            }
+                        }
+                    },
+                    y: {
+                        title: {
+                            display: true,
+                            text: "Power (kW)"
+                        },
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+        } catch (error) {
+        console.error("Load history error:", error);
+    }
+}
+
+async function loadDailyLoad(deviceId) {
+    const response = await apiFetch(`/devices/${deviceId}/daily-load`);
+    if (!response) return;
+    if (!response.ok) {
+        console.error("Failed to load daily load");
+        return;
+    }
+    const result = await response.json();
+    if (!result.success) {
+        console.error("Daily load error:", result.message);
+        return;
+    }
+    const peakLoad = Number(result.load?.peak_load);
+    const baseLoad = Number(result.load?.base_load);
+    document.getElementById("peakLoad").textContent = `${(peakLoad / 1000).toFixed(2)} KW`;
+    document.getElementById("baseLoad").textContent = `${(baseLoad / 1000).toFixed(2)} KW`;
+}
+
+document.getElementById("loadInterval").addEventListener("change", function () {
+    if (!loadCurveChart) return;
+    const interval = Number(this.value);
+    selectedLoadInterval = interval;
+    const baseWidth = 559.17;
+    const intervalHours = interval / 60;
+    const chartWidth = baseWidth * (4 / intervalHours);
+    const chartContainer = document.querySelector(".load-curve-chart");
+    chartContainer.style.width = `${chartWidth}px`;
+    loadCurveChart.options.scales.x.max = 1439.833;
+    loadCurveChart.options.scales.x.ticks.stepSize = interval;
+    loadCurveChart.resize();
+    loadCurveChart.update();
+});
+
+async function loadMonthlyLoad(deviceId) {
+    const response = await apiFetch(`/devices/${deviceId}/monthly-load`);
+    if (!response) return;
+    if (!response.ok) {
+        console.error("Failed to load monthly load");
+        return;
+    }
+    const result = await response.json();
+    if (!result.success) {
+        console.error("Monthly load error:", result.message);
+        return;
+    }
+    const monthName = new Date().toLocaleString("en-IN", {
+        month: "long",
+        year: "numeric"
+    });
+    const monthlyChartData = result.load.map(item => ({
+        day: Number(String(item.history_date).substring(8, 10)),
+        energy: Number(item.energy_kwh)
+    }));
+    const ctx = document.getElementById("monthlyEnergyChart");
+
+    if (monthlyEnergyChart) {
+        monthlyEnergyChart.destroy();
+    }
+
+    monthlyEnergyChart = new Chart(ctx, {
+        type: "bar",
+
+        data: {
+            datasets: [{
+                label: "Daily Energy (kWh)",
+                data: monthlyChartData,
+                tension: 0.3,
+                pointRadius: 3,
+                borderWidth: 2,
+                fill: false
+            }]
+        },
+
+        options: {
+            responsive: true,
+            maintainAspectRatio: false,
+
+            parsing: {
+                xAxisKey: "day",
+                yAxisKey: "energy"
+            },
+
+            plugins: {
+                legend: {
+                    display: false
+                },
+
+                tooltip: {
+                    callbacks: {
+                        title: function(context) {
+                            return `Day: ${context[0].parsed.x}`;
+                        },
+
+                        label: function(context) {
+                            return `Energy: ${Number(context.parsed.y).toFixed(2)} kWh`;
+                        }
+                    }
+                }
+            },
+
+            scales: {
+                x: {
+                    type: "linear",
+                    min: 1,
+                    max: new Date(
+                        new Date().getFullYear(),
+                        new Date().getMonth() + 1,
+                        0
+                    ).getDate(),
+
+                    ticks: {
+                        stepSize: 1,
+                        autoSkip: false,
+
+                        callback: function(value) {
+                            return value;
+                        }
+                    },
+
+                    title: {
+                        display: true,
+                        text: "Day"
+                    }
+                },
+
+                y: {
+                    beginAtZero: true,
+
+                    title: {
+                        display: true,
+                        text: "Energy (kWh)"
+                    }
+                }
+            }
+        }
+    });
 }
 
 async function init() {
@@ -335,6 +609,8 @@ setInterval(() => {
     if (deviceId) {
         loadDailyEnergy(deviceId);
         loadMonthlyEnergy(deviceId);
+        loadLoadHistory(deviceId);
+        loadDailyLoad(deviceId);
     }
 }, 10000);
 

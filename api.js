@@ -19,11 +19,9 @@ async function apiFetch(path, options = {}) {
         },
         ...options
     });
-
     if (response.status === 401 && !options.skipAuthRedirect) {
         window.location.replace("../index.html");
         return null;
     }
-
     return response;
 }
