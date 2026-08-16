@@ -5,6 +5,7 @@ let loadCurveChart = null;
 let selectedLoadInterval = 240;
 let monthlyEnergyChart = null;
 let lastPacketTime = 0;
+let dailyLoadDate = new Date().toDateString();
 
 const socketUrl = API;
 
@@ -157,16 +158,25 @@ async function loadLoadHistory(deviceId) {
         if (!data.success) {
             throw new Error("Failed to load load history");
         }
-        const chartData = data.history.map(item => {
+        const chartData = [];
+        let previousTime = null;
+        data.history.forEach(item => {
             const time = new Date(item.recorded_at);
             const minutes =
                 time.getHours() * 60 +
                 time.getMinutes() +
                 time.getSeconds() / 60;
-            return {
+            if (previousTime !== null && (minutes - previousTime) > 0.5) {
+                chartData.push({
+                    time: previousTime + 0.01,
+                    power: null
+                });
+            }
+            chartData.push({
                 time: minutes,
                 power: Number(item.real_power) / 1000
-            };
+            });
+            previousTime = minutes;
         });
         const ctx = document.getElementById("loadCurveChart");
         if (loadCurveChart) {
@@ -181,7 +191,8 @@ async function loadLoadHistory(deviceId) {
                     tension: 0.3,
                     pointRadius: 0,
                     borderWidth: 2,
-                    fill: false
+                    fill: false,
+                    spanGaps: false
                 }]
             },
             options: {
@@ -260,6 +271,9 @@ async function loadLoadHistory(deviceId) {
                                 const minutes = totalMinutes % 60;
                                 return `${String(hours).padStart(2, "0")}:${String(minutes).padStart(2, "0")}`;
                             }
+                        },
+                        grid : {
+                            display: false
                         }
                     },
                     y: {
@@ -267,7 +281,10 @@ async function loadLoadHistory(deviceId) {
                             display: true,
                             text: "Power (kW)"
                         },
-                        beginAtZero: true
+                        beginAtZero: true,
+                        grid: {
+                            display: false
+                        }
                     }
                 }
             }
@@ -331,14 +348,11 @@ async function loadMonthlyLoad(deviceId) {
         energy: Number(item.energy_kwh)
     }));
     const ctx = document.getElementById("monthlyEnergyChart");
-
     if (monthlyEnergyChart) {
         monthlyEnergyChart.destroy();
     }
-
     monthlyEnergyChart = new Chart(ctx, {
         type: "bar",
-
         data: {
             datasets: [{
                 label: "Daily Energy (kWh)",
@@ -349,21 +363,17 @@ async function loadMonthlyLoad(deviceId) {
                 fill: false
             }]
         },
-
         options: {
             responsive: true,
             maintainAspectRatio: false,
-
             parsing: {
                 xAxisKey: "day",
                 yAxisKey: "energy"
             },
-
             plugins: {
                 legend: {
                     display: false
                 },
-
                 tooltip: {
                     callbacks: {
                         title: function(context) {
@@ -376,7 +386,6 @@ async function loadMonthlyLoad(deviceId) {
                     }
                 }
             },
-
             scales: {
                 x: {
                     type: "linear",
@@ -386,28 +395,29 @@ async function loadMonthlyLoad(deviceId) {
                         new Date().getMonth() + 1,
                         0
                     ).getDate(),
-
                     ticks: {
                         stepSize: 1,
                         autoSkip: false,
-
                         callback: function(value) {
                             return value;
                         }
                     },
-
                     title: {
                         display: true,
                         text: "Day"
+                    },
+                    grid: {
+                        display: false
                     }
                 },
-
                 y: {
                     beginAtZero: true,
-
                     title: {
                         display: true,
                         text: "Energy (kWh)"
+                    },
+                    grid: {
+                        display: false
                     }
                 }
             }
@@ -578,7 +588,6 @@ function updateAITicker(greeting, username) {
         "Your smart energy monitoring system is ready.",
         "Live AI insights and energy recommendations will appear here."
     ];
-
     function playTicker() {
         ticker.textContent = messages[tickerIndex];
         ticker.style.animation = "none";
@@ -606,12 +615,16 @@ setInterval(() => {
 
 setInterval(() => {
     const deviceId = document.getElementById("deviceSelect").value;
-    if (deviceId) {
-        loadDailyEnergy(deviceId);
-        loadMonthlyEnergy(deviceId);
-        loadLoadHistory(deviceId);
-        loadDailyLoad(deviceId);
+    if (!deviceId) return;
+    const today = new Date().toDateString();
+    if (today !== dailyLoadDate) {
+        dailyLoadDate = today;
+        document.getElementById("peakLoad").textContent = "-- kW";
+        document.getElementById("baseLoad").textContent = "-- kW";
     }
+    loadDailyEnergy(deviceId);
+    loadMonthlyEnergy(deviceId);
+    loadDailyLoad(deviceId);
 }, 10000);
 
 init();
