@@ -504,6 +504,7 @@ function updateDashboard(data) {
         document.getElementById(`pf-${channel.channelId}`).textContent = channel.pf.toFixed(2);
         document.getElementById(`power-${channel.channelId}`).textContent = channel.realPower.toFixed(0);
         document.getElementById(`apparent-${channel.channelId}`).textContent = channel.apparentPower.toFixed(0);
+        document.getElementById(`energy-${channel.channelId}`).textContent = Number(channel.energyKWh).toFixed(2);
     });
 }
 
@@ -533,6 +534,10 @@ function createChannelCards(channels) {
                 <p>
                     Apparent power :
                     <span id="apparent-${channel.channel_id}">0</span> VA
+                </p>
+                <p>
+                    Units consumed :
+                    <span id="energy-${channel.channel_id}">0</span>
                 </p>
             </div>
         `;

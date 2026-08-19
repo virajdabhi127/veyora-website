@@ -97,6 +97,10 @@ document.getElementById("assignDeviceForm").addEventListener("submit", async (e)
     const productCode = document.getElementById("productCode").value;
     const channelCount = document.getElementById("channelCount").value;
     const editMode = document.getElementById("deviceEditMode").value;
+    if(userid == "" || deviceId == "" || productCode == "" || channelCount == "") {
+        alert("Credentials cant be kept empty.");
+        return;
+    }
     let url;
     let method;
     let body;
@@ -153,6 +157,10 @@ document.getElementById("createUserForm").addEventListener("submit", async (e) =
     const password = document.getElementById("password").value.trim();
     const role = document.getElementById("role").value;
     const editMode = document.getElementById("editMode").value;
+    if(userid == "" || username == "" || password == "") {
+        alert("Credentials cant be kept empty.");
+        return;
+    }
     let url;
     let method;
     let body;
