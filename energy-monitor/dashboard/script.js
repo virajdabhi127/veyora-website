@@ -536,7 +536,7 @@ function createChannelCards(channels) {
                     <span id="apparent-${channel.channel_id}">0</span> VA
                 </p>
                 <p>
-                    Units consumed :
+                    Energy :
                     <span id="energy-${channel.channel_id}">0</span>
                 </p>
             </div>

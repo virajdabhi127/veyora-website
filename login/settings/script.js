@@ -24,6 +24,9 @@ async function loadDevices() {
     devices = result.devices;
     document.getElementById("username").textContent = result.username;
     document.getElementById("profileAvatar").textContent = result.username.trim().charAt(0).toUpperCase();
+    if(result.devices[0].productCode == "EM") {
+        document.getElementById("product").textContent = "Energy Meter";
+    }
     const deviceSelect = document.getElementById("deviceSelect");
     deviceSelect.innerHTML = "";
     if (!devices.length) {
@@ -378,23 +381,27 @@ function createChannelSettings(channels) {
         container.innerHTML += `
             <div class="channel-setting-card"
                  data-channel-id="${channel.channel_id}">
-                <div class="channel-info">
-                    <span class="channel-label">
-                        Channel ${channel.channel_id}
-                    </span>
-                    <span class="channel-name"
-                          id="channel-name-${channel.channel_id}">
-                        ${escapeHtml(channel.channel_name)}
-                    </span>
-                </div>
-                <div class="channel-edit"
-                     id="channel-edit-${channel.channel_id}">
+                <div class="channel-top-row">
+                    <div class="channel-info">
+                        <span class="channel-label">
+                            Channel ${channel.channel_id}
+                        </span>
+                        <span class="channel-name"
+                              id="channel-name-${channel.channel_id}">
+                            ${escapeHtml(channel.channel_name)}
+                        </span>
+                    </div>
                     <button
                         class="rename-btn"
+                        id="rename-btn-${channel.channel_id}"
                         onclick="startRename(${channel.channel_id})">
                         <i class="fa-solid fa-pen"></i>
                         Rename
                     </button>
+                </div>
+                <div
+                    class="channel-edit-form"
+                    id="channel-edit-${channel.channel_id}">
                 </div>
             </div>
         `;
@@ -404,7 +411,9 @@ function createChannelSettings(channels) {
 function startRename(channelId) {
     const nameElement = document.getElementById(`channel-name-${channelId}`);
     const editContainer = document.getElementById(`channel-edit-${channelId}`);
+    const renameButton = document.getElementById(`rename-btn-${channelId}`);
     const currentName = nameElement.textContent.trim();
+    renameButton.style.display = "none";
     editContainer.innerHTML = `
         <input
             type="text"
@@ -413,18 +422,21 @@ function startRename(channelId) {
             maxlength="30"
             autocomplete="off"
         >
-        <button
-            class="save-btn"
-            onclick="saveChannelName(${channelId})">
-            <i class="fa-solid fa-check"></i>
-            Save
-        </button>
-        <button
-            class="cancel-btn"
-            onclick="cancelRename(${channelId}, '${escapeJs(currentName)}')">
-            Cancel
-        </button>
+        <div class="channel-edit-buttons">
+            <button
+                class="save-btn"
+                onclick="saveChannelName(${channelId})">
+                <i class="fa-solid fa-check"></i>
+                Save
+            </button>
+            <button
+                class="cancel-btn"
+                onclick="cancelRename(${channelId}, '${escapeJs(currentName)}')">
+                Cancel
+            </button>
+        </div>
     `;
+    editContainer.classList.add("active");
     const input = document.getElementById(`channel-input-${channelId}`);
     input.focus();
     input.select();
@@ -440,14 +452,10 @@ function startRename(channelId) {
 
 function cancelRename(channelId, currentName) {
     const editContainer = document.getElementById(`channel-edit-${channelId}`);
-    editContainer.innerHTML = `
-        <button
-            class="rename-btn"
-            onclick="startRename(${channelId})">
-            <i class="fa-solid fa-pen"></i>
-            Rename
-        </button>
-    `;
+    const renameButton = document.getElementById(`rename-btn-${channelId}`);
+    editContainer.innerHTML = "";
+    editContainer.classList.remove("active");
+    renameButton.style.display = "flex";
 }
 
 async function saveChannelName(channelId) {
