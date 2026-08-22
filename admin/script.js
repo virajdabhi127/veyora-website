@@ -88,6 +88,18 @@ async function deleteDevice(deviceId) {
     }
 }
 
+document.getElementById("home").addEventListener("click", async function (e) {
+    e.preventDefault();
+    await fetch(`${API}/auth/logout`, {
+        method: "POST",
+        credentials: "include"
+    });
+    window.close();
+    if (!window.closed) {
+        window.location.replace("/login/");
+    }
+});
+
 document.getElementById("assignDeviceForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const deviceId = document.getElementById("deviceId").value

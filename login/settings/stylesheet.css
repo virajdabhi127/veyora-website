@@ -861,7 +861,8 @@ footer{
     }
 
     .device-settings-row{
-        flex-direction: column;
+        display: flex;
+        flex-direction: row;
         align-items: stretch;
         gap: 1.8rem;
     }

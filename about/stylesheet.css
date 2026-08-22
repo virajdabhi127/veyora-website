@@ -628,13 +628,13 @@ html{
     }
 
     .tech_card img{
-         width: 2rem;
-         height: 2rem;
+         width: 3rem;
+         height: 3em;
     }
 }
 
 @media (max-width:360px) {
-       .tech_grid{
+    .tech_grid{
         grid-template-columns:repeat(3,1fr);
     }
 }

@@ -290,6 +290,7 @@ hr{
     max-width:120rem;
     margin:7rem auto;
     display:flex;
+    align-items: center;
     gap:6rem;
 }
 
@@ -311,6 +312,7 @@ hr{
 
 .product-image, .monitor-image{
     display: flex;
+    height: 50%;
     background-color: rgba(5,10,25,0.95);
     border-radius: 1rem;
     padding: 1rem 1rem;
@@ -406,6 +408,11 @@ hr{
     color: #1e5eff;
     font-size: 3rem;
     box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.work-icon svg{
+    height: 4rem;
+    width: 4rem;
 }
 
 .work-card h3{

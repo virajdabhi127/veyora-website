@@ -626,6 +626,7 @@ setInterval(() => {
         dailyLoadDate = today;
         document.getElementById("peakLoad").textContent = "-- kW";
         document.getElementById("baseLoad").textContent = "-- kW";
+        loadLoadHistory(deviceId);
     }
     loadDailyEnergy(deviceId);
     loadMonthlyEnergy(deviceId);
