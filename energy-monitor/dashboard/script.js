@@ -42,9 +42,7 @@ async function loadDevices() {
     });
     const selectedDevice = devices[0];
     deviceSelect.value = selectedDevice.deviceId;
-    const channels = await loadDeviceChannels(
-        selectedDevice.deviceId
-    );
+    const channels = await loadDeviceChannels(selectedDevice.deviceId);
     if (channels) {
         createChannelCards(channels);
     }
@@ -499,7 +497,7 @@ function updateDashboard(data) {
     document.getElementById("energyWh").textContent = `${(data.energyKWh * 1000).toFixed(0)} Wh`;
     document.getElementById("totalRealPower").textContent = `${Number(data.totalRealPower).toFixed(0)} W`;
     document.getElementById("totalApparentPower").textContent = `${Number(data.totalApparentPower).toFixed(0)} VA`;
-    data.channels.forEach(channel => {
+    (data.channels || []).forEach(channel => {
         document.getElementById(`current-${channel.channelId}`).textContent = channel.current.toFixed(2);
         document.getElementById(`pf-${channel.channelId}`).textContent = channel.pf.toFixed(2);
         document.getElementById(`power-${channel.channelId}`).textContent = channel.realPower.toFixed(0);
