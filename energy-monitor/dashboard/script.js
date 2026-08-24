@@ -484,8 +484,7 @@ function updateDashboard(data) {
         status.className = "status-indicator offline";
         status.querySelector(".status-text").textContent = "Offline";
     }
-    document.getElementById("lastUpdate").textContent =
-        new Date(data.lastUpdate).toLocaleTimeString("en-IN", {
+    document.getElementById("lastUpdate").textContent = new Date(data.lastUpdate).toLocaleTimeString("en-IN", {
             hour12: false,
             hour: "2-digit",
             minute: "2-digit",
@@ -494,7 +493,7 @@ function updateDashboard(data) {
     document.getElementById("voltage").textContent = `${Number(data.voltage).toFixed(2)} V`;
     document.getElementById("totalCurrent").textContent = `${Number(data.totalCurrent).toFixed(2)} A`;
     document.getElementById("energyKWh").textContent = Number(data.energyKWh).toFixed(2);
-    document.getElementById("energyWh").textContent = `${(data.energyKWh * 1000).toFixed(0)} Wh`;
+    document.getElementById("totalPowerFactor").textContent = Number(data.totalPowerFactor).toFixed(2);
     document.getElementById("totalRealPower").textContent = `${Number(data.totalRealPower).toFixed(0)} W`;
     document.getElementById("totalApparentPower").textContent = `${Number(data.totalApparentPower).toFixed(0)} VA`;
     (data.channels || []).forEach(channel => {

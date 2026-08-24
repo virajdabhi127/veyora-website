@@ -118,33 +118,36 @@
                 </div>
             </div>
             <div class="live-values">
-                <div class="live_1">
-                    <div class="live1">
-                        <span id="toggleChannels_1">▼</span><span class="label-live">Total Power :</span><span id="totalRealPower">--</span>
+                <span id="toggle_1">▼</span>
+                <div class="values_box">
+                    <div class="live_1">
+                        <div class="live1">
+                            <span class="label-live">Total units consumed :</span><span id="energyKWh">--</span>
+                        </div>
+                        <div class="live1">
+                            <span class="label-live">Total Power :</span><span id="totalRealPower">--</span>
+                        </div>
+                        <div class="live1">
+                            <span class="label-live">Total VA :</span><span id="totalApparentPower">--</span>
+                        </div>
                     </div>
-                    <div class="live1">
-                        <span class="label-live">Energy :</span><span id="energyWh">--</span>
-                    </div>
-                    <div class="live1">
-                        <span class="label-live">Total units consumed :</span><span id="energyKWh">--</span>
-                    </div>
-                </div>
-                <div class="live_2">
-                    <div class="live2">
-                        <span class="label-live">Total VA :</span><span id="totalApparentPower">--</span>
-                    </div>
-                     <div class="live2">
-                        <span class="label-live">Voltage :</span><span id="voltage">--</span>
-                    </div>
-                    <div class="live2">
-                        <span class="label-live">Total current :</span><span id="totalCurrent">--</span>
+                    <div class="live_2">
+                        <div class="live2">
+                            <span class="label-live">Voltage :</span><span id="voltage">--</span>
+                        </div>
+                        <div class="live2">
+                            <span class="label-live">Total current :</span><span id="totalCurrent">--</span>
+                        </div>
+                        <div class="live2">
+                            <span class="label-live">Power factor :</span><span id="totalPowerFactor">--</span>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="channels">
+            <div class="channels" id="channels">
                 <div class="channels-header" id="channelsHeader">
                     <h3>Channels</h3>
-                    <span id="toggleChannels_2">▼</span>
+                    <span id="toggle_2">▼</span>
                 </div>
                 <div class="channels-content" id="channelContainer"></div>
             </div>
@@ -239,14 +242,14 @@
         });
         const channels = document.querySelector(".channels");
         const header = document.getElementById("channelsHeader");
-        const toggle_2 = document.getElementById("toggleChannels_2");
+        const toggle_2 = document.getElementById("toggle_2");
         header.addEventListener("click", () => {
             channels.classList.toggle("open");
             toggle_2.textContent = channels.classList.contains("open") ? "▲" : "▼";
         });
         const liveValues = document.querySelector(".live-values");
         const live1 = document.querySelector(".live_1");
-        const toggle_1 = document.getElementById("toggleChannels_1");
+        const toggle_1 = document.getElementById("toggle_1");
         live1.addEventListener("click", () => {
             liveValues.classList.toggle("open");
             toggle_1.textContent = liveValues.classList.contains("open") ? "▲" : "▼";
