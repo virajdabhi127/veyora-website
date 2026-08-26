@@ -494,8 +494,8 @@ function updateDashboard(data) {
     document.getElementById("totalCurrent").textContent = `${Number(data.totalCurrent).toFixed(2)} A`;
     document.getElementById("energyKWh").textContent = Number(data.energyKWh).toFixed(2);
     document.getElementById("totalPowerFactor").textContent = Number(data.totalPowerFactor).toFixed(2);
-    document.getElementById("totalRealPower").textContent = `${Number(data.totalRealPower).toFixed(0)} W`;
-    document.getElementById("totalApparentPower").textContent = `${Number(data.totalApparentPower).toFixed(0)} VA`;
+    document.getElementById("totalRealPower").textContent = `${Number(data.totalRealPower/1000).toFixed(2)} KW`;
+    document.getElementById("totalApparentPower").textContent = `${Number(data.totalApparentPower/1000).toFixed(2)} KVA`;
     (data.channels || []).forEach(channel => {
         document.getElementById(`current-${channel.channelId}`).textContent = channel.current.toFixed(2);
         document.getElementById(`pf-${channel.channelId}`).textContent = channel.pf.toFixed(2);
