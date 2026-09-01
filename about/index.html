@@ -27,8 +27,9 @@
                         <a href="/energy-monitor">Energy Monitoring System</a>
                     </div>
                 </div>
-                <a href="#contact">CONTACT</a>
+                <a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">CONTACT</a>
                 <a href="index.html#hero-slider" class="active">ABOUT US</a>
+                <a href="/login">LOGIN</a>
             </div>
             <div class="menu-toggle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
@@ -110,46 +111,6 @@
             </div>
         </div>
     </section>
-    <section class="tech_stack" id = "tech">
-        <div class="tech_header">
-            <h1>Technologies Behind Veyora</h1>
-            <p>Combining hardware, software, and cloud technologies to build intelligent automation solutions.</p>
-        </div>
-        <div class="tech_grid">
-            <div class="tech_card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/arduino/arduino-original.svg" alt="Arduino">
-                <h2>Arduino IDE</h2>
-            </div>
-            <div class="tech_card">
-                <img src="https://cdn.jsdelivr.net/npm/lucide-static/icons/cpu.svg" alt="ESP32">
-                <h2>ESP32</h2>
-            </div>
-            <div class="tech_card">
-                <img src="https://cdn.simpleicons.org/mqtt" alt="MQTT">
-                <h2>MQTT</h2>
-            </div>
-            <div class="tech_card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg" alt="Node.js">
-                <h2>Node.js</h2>
-            </div>
-            <div class="tech_card">
-                <img src= "https://www.vectorlogo.zone/logos/postgresql/postgresql-icon.svg" alt="SQLite">
-                <h2>PostgreSQL</h2>
-            </div>
-            <div class="tech_card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg" alt="HTML5">
-                <h2>HTML5</h2>
-            </div>
-            <div class="tech_card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/css3/css3-original.svg" alt="CSS3">
-                <h2>CSS3</h2>
-            </div>
-            <div class="tech_card">
-                <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg" alt="JavaScript">
-                <h2>JavaScript</h2>
-            </div>
-        </div>
-    </section>
     <footer class="footer">
         <div class="footer_grid">
             <div class="footer_col">
@@ -222,14 +183,19 @@
         dropdowns.forEach((dropdown) => {
             const trigger = dropdown.querySelector('a');
             trigger.addEventListener('click', (e) => {
-                if(window.innerWidth > 768) return;
                 e.preventDefault();
+                e.stopPropagation();
                 const isOpen = dropdown.classList.contains('open');
-                dropdowns.forEach(item => {
-                    item.classList.remove('open');
-                });
-                if(!isOpen){
+                dropdowns.forEach(item => item.classList.remove('open'));
+                if (!isOpen) {
                     dropdown.classList.add('open');
+                }
+            });
+        });
+        document.addEventListener('click', (e) => {
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('open');
                 }
             });
         });

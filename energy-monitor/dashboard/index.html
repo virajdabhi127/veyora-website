@@ -52,15 +52,6 @@
                 </div>
             </div>
         </nav>
-        <div class="ai-ticker" id="ai-ticker">
-            <div class="ai-title">
-                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" id="ai" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-wand-sparkles-icon lucide-wand-sparkles"><path d="m21.64 3.64-1.28-1.28a1.21 1.21 0 0 0-1.72 0L2.36 18.64a1.21 1.21 0 0 0 0 1.72l1.28 1.28a1.2 1.2 0 0 0 1.72 0L21.64 5.36a1.2 1.2 0 0 0 0-1.72"/><path d="m14 7 3 3"/><path d="M5 6v4"/><path d="M19 14v4"/><path d="M10 2v2"/><path d="M7 8H3"/><path d="M21 16h-4"/><path d="M11 3H9"/></svg>
-                <h2>AI - Insight</h2> 
-            </div>
-            <div class="ticker-wrapper">
-                <div class="ticker-text" id="aiTicker"></div>
-            </div>
-        </div>
     </div>
     <div class="page">
         <div class="main">
@@ -248,9 +239,8 @@
             toggle_2.textContent = channels.classList.contains("open") ? "▲" : "▼";
         });
         const liveValues = document.querySelector(".live-values");
-        const live1 = document.querySelector(".live_1");
         const toggle_1 = document.getElementById("toggle_1");
-        live1.addEventListener("click", () => {
+        liveValues.addEventListener("click", () => {
             liveValues.classList.toggle("open");
             toggle_1.textContent = liveValues.classList.contains("open") ? "▲" : "▼";
         });

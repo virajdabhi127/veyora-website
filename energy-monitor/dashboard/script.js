@@ -30,7 +30,6 @@ async function loadDevices() {
     document.getElementById("username").textContent = result.username;
     document.getElementById("profileAvatar").textContent = result.username.trim().charAt(0).toUpperCase();
     const greeting = setGreeting(result.username);
-    updateAITicker(greeting, result.username);
     const deviceSelect = document.getElementById("deviceSelect");
     deviceSelect.innerHTML = "";
     devices.forEach(device => {
@@ -306,8 +305,14 @@ async function loadDailyLoad(deviceId) {
     }
     const peakLoad = Number(result.load?.peak_load);
     const baseLoad = Number(result.load?.base_load);
-    document.getElementById("peakLoad").textContent = `${(peakLoad / 1000).toFixed(2)} KW`;
-    document.getElementById("baseLoad").textContent = `${(baseLoad / 1000).toFixed(2)} KW`;
+    document.getElementById("peakLoad").textContent =
+            Number.isFinite(peakLoad)
+                ? `${(peakLoad / 1000).toFixed(2)} KW`
+                : "-- KW";
+    document.getElementById("baseLoad").textContent =
+            Number.isFinite(baseLoad)
+                ? `${(baseLoad / 1000).toFixed(2)} KW`
+                : "-- KW";
 }
 
 document.getElementById("loadInterval").addEventListener("change", function () {
@@ -484,12 +489,7 @@ function updateDashboard(data) {
         status.className = "status-indicator offline";
         status.querySelector(".status-text").textContent = "Offline";
     }
-    document.getElementById("lastUpdate").textContent = new Date(data.lastUpdate).toLocaleTimeString("en-IN", {
-            hour12: false,
-            hour: "2-digit",
-            minute: "2-digit",
-            second: "2-digit"
-        });
+    document.getElementById("lastUpdate").textContent = formatLastUpdate(data.lastUpdate);
     document.getElementById("voltage").textContent = `${Number(data.voltage).toFixed(2)} V`;
     document.getElementById("totalCurrent").textContent = `${Number(data.totalCurrent).toFixed(2)} A`;
     document.getElementById("energyKWh").textContent = Number(data.energyKWh).toFixed(2);
@@ -502,6 +502,26 @@ function updateDashboard(data) {
         document.getElementById(`power-${channel.channelId}`).textContent = channel.realPower.toFixed(0);
         document.getElementById(`apparent-${channel.channelId}`).textContent = channel.apparentPower.toFixed(0);
         document.getElementById(`energy-${channel.channelId}`).textContent = Number(channel.energyKWh).toFixed(2);
+    });
+}
+
+function formatLastUpdate(lastUpdate) {
+    if (!lastUpdate) return "--";
+    const date = new Date(lastUpdate);
+    const now = new Date();
+    const isToday = date.toDateString() === now.toDateString();
+    if (isToday) {
+        return date.toLocaleTimeString("en-IN", {
+            hour12: false,
+            hour: "2-digit",
+            minute: "2-digit",
+            second: "2-digit"
+        });
+    }
+    return date.toLocaleDateString("en-IN", {
+        day: "2-digit",
+        month: "short",
+        year: "numeric"
     });
 }
 
@@ -580,29 +600,6 @@ document.getElementById("logoutBtn").addEventListener("click", async function (e
         window.location.replace("/login/");
     }
 });
-
-let tickerIndex = 0;
-
-function updateAITicker(greeting, username) {
-    const ticker = document.getElementById("aiTicker");
-    const messages = [
-        `${greeting}, ${username}. Welcome to the Veyora Dashboard.`,
-        "Your smart energy monitoring system is ready.",
-        "Live AI insights and energy recommendations will appear here."
-    ];
-    function playTicker() {
-        ticker.textContent = messages[tickerIndex];
-        ticker.style.animation = "none";
-        void ticker.offsetWidth;
-        ticker.style.animation = "ticker 20s linear";
-        tickerIndex++;
-        if (tickerIndex >= messages.length) {
-            tickerIndex = 0;
-        }
-    }
-    playTicker();
-    ticker.onanimationend = playTicker;
-}
 
 setInterval(() => {
     if (latestData) {

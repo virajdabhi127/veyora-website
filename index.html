@@ -32,13 +32,14 @@
             <div class="link_1">
                 <a href="/" class="active">HOME</a>
                 <div class="dropdown">
-                    <a href="#" class="project-link">PRODUCTS</a>
-                     <div class="dropdown-content">
+                    <a href="#" class="dropdown-trigger">PRODUCTS</a>
+                    <div class="dropdown-content">
                         <a href="/energy-monitor">Energy Monitoring System</a>
                     </div>
                 </div>
-                <a href="#contact">CONTACT</a>
+                <a onclick="document.getElementById('contact').scrollIntoView({behavior:'smooth'})" style="cursor:pointer;">CONTACT</a>
                 <a href="/about">ABOUT US</a>
+                <a href="/login">LOGIN</a>
             </div>
             <div class="menu-toggle">
                 <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="lucide lucide-menu-icon lucide-menu"><path d="M4 5h16"/><path d="M4 12h16"/><path d="M4 19h16"/></svg>
@@ -103,8 +104,8 @@
     <div class="solutions" id="solutions">
         <h1>Core solutions</h1>
         <div class="sol_cont">
-            <div class="sec irrigation left-card" id="solutions-card">
-                <div class="content">
+            <div id="solutions-card">
+                <div class="content" id="energy-monitor">
                     <h2>Smart Energy Monitoring System</h2>
                     <p>
                         Gain complete visibility into your home's electrical consumption with real-time monitoring, advanced analytics and intelligent insights designed to improve efficiency and reduce energy costs.
@@ -118,8 +119,8 @@
                     </ul>
                 </div>
             </div>
-            <div class="sec home right-card" id="solutions-card">
-                <div class="content">
+            <div id="solutions-card">
+                <div class="content" id="home-automation">
                     <h2>Building smarter, connected living spaces</h2>
                     <p>
                         Transform your home into an intelligent living space with connected devices, remote control, smart scheduling and seamless automation all managed through a unified ecosystem.
@@ -196,8 +197,8 @@
             <div class="footer_col">
                 <h3 id="contact">Contact</h3>
                 <ul>
-                    <li><a href="#" onclick="copyEmail()">virajdabhi910@gmail.com</a></li>
-                    <li>+91 9409205916</li>
+                    <li><a href="mailto:virajdabhi910@gmail.com" onclick="copyEmail()">virajdabhi910@gmail.com</a></li>
+                    <li><a href="tel:+919409205916">+91 9409205916</a></li>
                     <li>Rajkot, Gujarat - 360001</li>
                     <!-- <li>
                         <div class="social_icons">
@@ -224,6 +225,7 @@
             </span>
         </div>
     </footer>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
         window.addEventListener("load", () => {
             if(sessionStorage.getItem("splashShown")){
@@ -252,86 +254,96 @@
                         .classList.add('hide');
             }, 500);
         });
+         function copyEmail() {
+            navigator.clipboard.writeText("virajdabhi910@gmail.com")
+                .then(() => {
+                    alert("Email copied to clipboard!");
+                })
+                .catch(err => {
+                    console.error("Failed to copy:", err);
+                });
+        }
     </script>
     <script>
-     function copyEmail() {
-        navigator.clipboard.writeText("virajdabhi910@gmail.com")
-            .then(() => {
-                alert("Email copied to clipboard!");
-            })
-            .catch(err => {
-                console.error("Failed to copy:", err);
-            });
-    }
-    window.addEventListener("scroll", function() {
-        const navbar = document.getElementById("nav_1");
-        if(window.scrollY > 50){
-            navbar.classList.add("scrolled");
-        }
-        else{
-            navbar.classList.remove("scrolled");
-        }
-    });
-    const cards = document.querySelectorAll('.sec');
-    const observer = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-            if(entry.isIntersecting){
-                entry.target.classList.add('show');
+       const heroSwiper = new Swiper(".heroSwiper",{
+            loop:true,
+            autoplay:{
+                delay:5000,
+                disableOnInteraction:false,
+            },
+            pagination:{
+                el:".swiper-pagination",
+                clickable:true,
+            },
+            navigation:{
+                nextEl:".swiper-button-next",
+                prevEl:".swiper-button-prev",
+            },
+        });
+
+        let sliderPaused = false;
+        const heroSwiperEl = document.querySelector(".heroSwiper");
+        heroSwiperEl.addEventListener("click", (e) => {
+            if (e.target.closest(".swiper-button-next") ||
+                e.target.closest(".swiper-button-prev")) {
+                if (sliderPaused) {
+                    heroSwiper.autoplay.start();
+                    sliderPaused = false;
+                }
+                return;
             }
-            else{
-                entry.target.classList.remove('show');
+            if (e.target.closest(".swiper-pagination") ||
+                e.target.closest(".hero-btn")) {
+                return;
+            }
+            if (e.target.closest(".slide")) {
+                heroSwiper.autoplay.stop();
+                sliderPaused = true;
             }
         });
-    },{
-        threshold: 0.25
-    });
-    cards.forEach(card => {
-        observer.observe(card);
-    });
-</script>
-<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
-<script>
-    new Swiper(".heroSwiper",{
-        loop:true,
-        autoplay:{
-            delay:5000,
-            disableOnInteraction:false,
-        },
-        pagination:{
-            el:".swiper-pagination",
-            clickable:true,
-        },
-        navigation:{
-            nextEl:".swiper-button-next",
-            prevEl:".swiper-button-prev",
-        },
-    });
-    const menuToggle = document.querySelector(".menu-toggle");
-    const navLinks = document.querySelector(".link_1");
-    menuToggle.addEventListener("click", (e) => {
-        navLinks.classList.toggle("active");
-        e.stopPropagation(); // Prevent immediate closing
-    });
-    document.addEventListener("click", (e) => {
-        if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
-            navLinks.classList.remove("active");
-        }
-    });
-    const dropdowns = document.querySelectorAll('.dropdown');
-    dropdowns.forEach((dropdown) => {
-        const trigger = dropdown.querySelector('a');
-        trigger.addEventListener('click', (e) => {
-            if(window.innerWidth > 768) return;
-            e.preventDefault();
-            const isOpen = dropdown.classList.contains('open');
-            dropdowns.forEach(item => {
-                item.classList.remove('open');
-            });
-            if(!isOpen){
-                dropdown.classList.add('open');
+       window.addEventListener("scroll", function() {
+            const navbar = document.getElementById("nav_1");
+            if (window.scrollY > 50) {
+                navbar.classList.add("scrolled");
+                if (sliderPaused) {
+                    heroSwiper.autoplay.start();
+                    sliderPaused = false;
+                }
+            } else {
+                navbar.classList.remove("scrolled");
             }
         });
-    });
-</script>
+        const menuToggle = document.querySelector(".menu-toggle");
+        const navLinks = document.querySelector(".link_1");
+        menuToggle.addEventListener("click", (e) => {
+            navLinks.classList.toggle("active");
+            e.stopPropagation();
+        });
+        document.addEventListener("click", (e) => {
+            if (!navLinks.contains(e.target) && !menuToggle.contains(e.target)) {
+                navLinks.classList.remove("active");
+            }
+        });
+        const dropdowns = document.querySelectorAll('.dropdown');
+        dropdowns.forEach((dropdown) => {
+            const trigger = dropdown.querySelector('a');
+            trigger.addEventListener('click', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const isOpen = dropdown.classList.contains('open');
+                dropdowns.forEach(item => item.classList.remove('open'));
+                if (!isOpen) {
+                    dropdown.classList.add('open');
+                }
+            });
+        });
+        document.addEventListener('click', (e) => {
+            dropdowns.forEach(dropdown => {
+                if (!dropdown.contains(e.target)) {
+                    dropdown.classList.remove('open');
+                }
+            });
+        });
+    </script>
 </body>
 </html>
