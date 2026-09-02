@@ -209,14 +209,11 @@
     <script>
         window.addEventListener("scroll", function() {
             const navbar = document.getElementById("nav_1");
-            const aiTicker = document.getElementById("ai-ticker");
             if(window.scrollY > 10){
                 navbar.classList.add("scrolled");
-                aiTicker.classList.add("scrolled");
             }
             else{
                 navbar.classList.remove("scrolled");
-                aiTicker.classList.remove("scrolled");
             }
         });
         const userBtn = document.querySelector(".user-btn");

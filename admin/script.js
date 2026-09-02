@@ -108,6 +108,7 @@ document.getElementById("assignDeviceForm").addEventListener("submit", async (e)
     const userid = document.getElementById("assignUserid").value.trim();
     const productCode = document.getElementById("productCode").value;
     const channelCount = document.getElementById("channelCount").value;
+    const energyKWhRaw = document.getElementById("deviceEnergyKWh").value.trim();
     const editMode = document.getElementById("deviceEditMode").value;
     if(userid == "" || deviceId == "" || productCode == "" || channelCount == "") {
         alert("Credentials cant be kept empty.");
@@ -145,11 +146,37 @@ document.getElementById("assignDeviceForm").addEventListener("submit", async (e)
         });
         const data = await response.json();
         if (response.ok) {
+            const targetDeviceId = editMode === "" ? deviceId : editMode;
+            let energyMessage = "";
+            if (energyKWhRaw !== "") {
+                const energyKWh = Number(energyKWhRaw);
+                if (Number.isFinite(energyKWh) && energyKWh >= 0) {
+                    try {
+                        const energyResponse = await fetch(
+                            API + `/admin/device/${targetDeviceId}/set-energy`,
+                            {
+                                method: "POST",
+                                headers: {
+                                    "Content-Type": "application/json"
+                                },
+                                credentials: "include",
+                                body: JSON.stringify({ energyKWh })
+                            }
+                        );
+                        const energyData = await energyResponse.json();
+                        energyMessage = energyResponse.ok
+                            ? " Energy update sent to device."
+                            : ` Energy update failed: ${energyData.message}`;
+                    } catch (err) {
+                        energyMessage = " Energy update failed: server error.";
+                    }
+                }
+            }
             if (editMode === "") {
-                alert("Device assigned successfully.");
+                alert("Device assigned successfully." + energyMessage);
                 document.getElementById("assignDeviceForm").reset();
             } else {
-                alert("Device updated successfully.");
+                alert("Device updated successfully." + energyMessage);
                 cancelDeviceEdit();
             }
             loadDevices();
@@ -278,6 +305,7 @@ function editDevice(deviceId) {
     document.getElementById("assignUserid").value = device.userid;
     document.getElementById("productCode").value = device.productCode;
     document.getElementById("channelCount").value = device.channelCount;
+    document.getElementById("deviceEnergyKWh").value = "";
     document.getElementById("deviceSubmitBtn").textContent = "Update Device";
     document.getElementById("cancelDeviceBtn").style.display = "inline-block";
 }

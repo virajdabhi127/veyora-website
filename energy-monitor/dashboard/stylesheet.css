@@ -292,7 +292,7 @@ body{
 }
 
 .lastUpdate{
-    width: 20rem;
+    width: 25rem;
 }
 
 .usage {
@@ -718,7 +718,7 @@ footer{
     }
 
     .lastUpdate{
-        width: 15rem;
+        width: 20rem;
     }
 
     #deviceSelect{

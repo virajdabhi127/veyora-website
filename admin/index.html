@@ -70,6 +70,8 @@
                 </select><br><br>
                 <label>Channel Count</label><br>
                 <input type="number" id="channelCount" min="1"><br><br>
+                <label>Current kWh Reading</label><br>
+                <input type="number" id="deviceEnergyKWh" step="0.01" min="0" placeholder="Current kWh Reading (optional)"><br><br>
                 <button type="submit" id="deviceSubmitBtn">Assign Device</button>
                 <button type="button" id="cancelDeviceBtn" onclick="cancelDeviceEdit()" style="display:none;"> Cancel</button>
             </form>
