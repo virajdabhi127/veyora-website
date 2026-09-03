@@ -212,7 +212,7 @@ body{
     border-radius: 1.5rem;
     color: #fff;
     background-color: #2563EB;
-    width: 10rem;
+    width: 12.5rem;
     padding: 0.5rem 1.5rem;
     border: none;
     transition: all 0.3s ease;
@@ -291,6 +291,6 @@ select:focus {
         margin-top: 1rem;        
     }
     .btn {
-       width: 25%;        
+       width: 40%;        
     }
 }

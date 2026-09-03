@@ -709,7 +709,7 @@ footer{
     .dash_head{
         display: grid;
         grid-template-columns: auto auto;
-        justify-content: space-between;
+        margin: 1.5rem;
         row-gap: 1rem;
     }
 
@@ -718,7 +718,7 @@ footer{
     }
 
     .lastUpdate{
-        width: 20rem;
+        width: 17.5rem;
     }
 
     #deviceSelect{
