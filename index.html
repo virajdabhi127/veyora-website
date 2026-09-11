@@ -227,42 +227,51 @@
     </footer>
     <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
     <script>
-        window.addEventListener("load", () => {
-            if(sessionStorage.getItem("splashShown")){
-                document.getElementById("splash-screen").style.display = "none";
-            } else {
-                sessionStorage.setItem("splashShown", "true");
-                setTimeout(() => {
-                    document.getElementById("splash-screen")
-                            .classList.add("hide");
-                }, 800);
-            }
-        });
+    const splash = document.getElementById("splash-screen");
+    const bar = document.querySelector(".loader-bar");
+    const splashShown = sessionStorage.getItem("splashShown");
+    if (splashShown) {
+        splash.style.display = "none";
+    } else {
+        let pageLoaded = false;
         let progress = 0;
-        const bar = document.querySelector('.loader-bar');
-        const interval = setInterval(() => {
-            if(progress < 90){
-                progress += Math.random() * 10;
-                bar.style.width = progress + '%';
+        sessionStorage.setItem("splashShown", "true");
+        function updateProgress() {
+            const resources = performance.getEntriesByType("resource");
+            if (resources.length > 0) {
+                const loadedResources = resources.filter(resource => {
+                    return resource.responseEnd > 0;
+                }).length;
+                const resourceProgress = (loadedResources / resources.length) * 90;
+                progress = Math.max(progress, resourceProgress);
+            } else {
+                progress = Math.min(progress + 1, 90);
             }
-        }, 200);
-        window.addEventListener('load', () => {
-            clearInterval(interval);
-            bar.style.width = '100%';
-            setTimeout(() => {
-                document.getElementById('splash-screen')
-                        .classList.add('hide');
-            }, 500);
-        });
-         function copyEmail() {
-            navigator.clipboard.writeText("virajdabhi910@gmail.com")
-                .then(() => {
-                    alert("Email copied to clipboard!");
-                })
-                .catch(err => {
-                    console.error("Failed to copy:", err);
-                });
+            progress = Math.min(progress, 90);
+            bar.style.width = progress + "%";
+            if (!pageLoaded) {
+                requestAnimationFrame(updateProgress);
+            }
         }
+        updateProgress();
+
+        window.addEventListener("load", () => {
+            pageLoaded = true;
+            bar.style.width = "100%";
+            setTimeout(() => {
+                splash.classList.add("hide");
+            }, 250);
+        });
+    }
+    function copyEmail() {
+        navigator.clipboard.writeText("virajdabhi910@gmail.com")
+        .then(() => {
+            alert("Email copied to clipboard!");
+        })
+        .catch(err => {
+            console.error("Failed to copy:", err);
+        });
+    }
     </script>
     <script>
        const heroSwiper = new Swiper(".heroSwiper",{
