@@ -6,9 +6,7 @@ const API = USE_LOCAL_BACKEND
 
 const SOCKET_URL = API;
 
-console.log(
-    `Using ${USE_LOCAL_BACKEND ? "Local" : "Production"} Backend`
-);
+console.log(`Using ${USE_LOCAL_BACKEND ? "Local" : "Production"} Backend`);
 
 async function apiFetch(path, options = {}) {
     const response = await fetch(`${API}${path}`, {

@@ -456,7 +456,7 @@ function connectSocket() {
     socket.on("disconnect", () => {
         console.log("Socket Disconnected");
     });
-
+    
     socket.on("update", (data) => {
         latestData = data;
         lastPacketTime = Date.now();
