@@ -250,7 +250,7 @@ body{
     margin-bottom: 0.5rem;
 }
 
-.section-title p{
+.section-title p, .reset_channels p{
     color: #9ca3af;
     font-size: 1.4rem;
 }
@@ -358,6 +358,31 @@ body{
     display: flex;
     flex-direction: column;
     gap: 1.2rem;
+}
+
+.reset_channels{
+    gap: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    margin-top: 2.5rem;
+    justify-content: space-between;
+}
+
+
+.reset-channels-btn{
+    width: 15rem;
+    height: 3rem;
+    border-radius:1rem;
+    border: none;
+    align-items:center;
+    background:#191b6d;
+    color:#fff;
+    transition:background .2s;
+}
+
+.reset-channels-btn:hover{
+    background:#e21f1f;
+    color:#fff;
 }
 
 .channel-setting-card {

@@ -90,9 +90,7 @@ async function loadDailyEnergy(deviceId) {
 }
 
 async function loadMonthlyEnergy(deviceId) {
-    const response = await apiFetch(
-        `/devices/${deviceId}/monthly-energy`
-    );
+    const response = await apiFetch(`/devices/${deviceId}/monthly-energy`);
     if (!response) return;
     if (!response.ok) {
         console.error("Failed to load monthly energy");

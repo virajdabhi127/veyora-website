@@ -1,6 +1,8 @@
 let devices = [];
 let socket = null;
 let lastPacketTime = 0;
+let deviceOnline = false;
+let resetInProgress = false;
 
 const socketUrl = API;
 
@@ -73,6 +75,22 @@ async function loadDeviceChannels(deviceId) {
         return;
     }
     createChannelSettings(result.channels);
+}
+
+async function resetChannelEnergy(deviceId, channelId) {
+    if (!confirm(`Reset channel ${channelId} energy to 0 kWh? This cannot be undone.`)) return;
+    const response = await apiFetch(`/devices/${deviceId}/reset-channel-energy`, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ channelId })
+    });
+    if (!response) return;
+    const data = await response.json();
+    if (!data.success) {
+        showSettingsAlert(data.message || "Reset failed.", "error");
+        return;
+    }
+    showSettingsAlert(`Channel ${channelId} reset successfully.`, "success");
 }
 
 async function loadDeviceWiFi(deviceId) {
@@ -552,6 +570,8 @@ function updateDeviceStatus(data) {
     if (data.connected) {
         status.className = "status-indicator online";
         status.querySelector(".status-text").textContent = "Online";
+        deviceOnline = true;
+        refreshResetButtonState();
     } else {
         setDeviceOffline();
     }
@@ -607,6 +627,8 @@ function setDeviceOffline() {
     const status = document.getElementById("deviceStatus");
     status.className = "status-indicator offline";
     status.querySelector(".status-text").textContent = "Offline";
+    deviceOnline = false;
+    refreshResetButtonState();
     const cards =document.querySelectorAll(".wifi-hotspot-card");
     cards.forEach(card => {
         card.classList.remove("active");
@@ -675,10 +697,52 @@ document.getElementById("logoutBtn").addEventListener("click", async function (e
         }
 });
 
+document.getElementById("resetChannelsBtn").addEventListener("click", async () => {
+    const deviceId = document.getElementById("deviceSelect").value;
+    if (!deviceId) return;
+
+    const cards = document.querySelectorAll(".channel-setting-card");
+    if (cards.length === 0) return;
+    if (!confirm(`Reset all ${cards.length} channel(s) energy to 0 kWh? This cannot be undone.`)) return;
+
+    resetInProgress = true;
+    refreshResetButtonState();
+
+    try {
+        for (const card of cards) {
+            const channelId = Number(card.dataset.channelId);
+            const response = await apiFetch(`/devices/${deviceId}/reset-channel-energy`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ channelId })
+            });
+            if (!response) throw new Error("No response from server.");
+            const data = await response.json();
+            if (!data.success) {
+                throw new Error(data.message || `Failed to reset channel ${channelId}.`);
+            }
+        }
+        showSettingsAlert("All channels reset successfully.", "success");
+    } catch (err) {
+        console.error("Reset channels error:", err);
+        showSettingsAlert(err.message || "Failed to reset channels.", "error");
+    } finally {
+        resetInProgress = false;
+        refreshResetButtonState();
+    }
+});
+
+function refreshResetButtonState() {
+    const resetBtn = document.getElementById("resetChannelsBtn");
+    if (!resetBtn) return;
+    resetBtn.disabled = !deviceOnline || resetInProgress;
+}
+
 async function init() {
     const auth = await checkAuth();
     if (!auth) return;
     document.getElementById("userid").textContent = auth.user.userid;
+    setDeviceOffline();
     await loadDevices();
     connectSocket();
 }
