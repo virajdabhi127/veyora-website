@@ -143,6 +143,23 @@ async function loadDeviceChannels(deviceId) {
     return result.channels;
 }
 
+async function refreshChannelNames(deviceId) {
+    if (!deviceId) return;
+    const channels = await loadDeviceChannels(deviceId);
+    if (!channels) return;
+    const cards = document.querySelectorAll("#channelContainer .channel-card");
+    if (cards.length !== channels.length) {
+        createChannelCards(channels);
+        return;
+    }
+    channels.forEach(ch => {
+        const el = document.getElementById(`channel-name-${ch.channel_id}`);
+        if (el && el.textContent.trim() !== ch.channel_name) {
+            el.textContent = ch.channel_name;
+        }
+    });
+}
+
 async function loadLoadHistory(deviceId) {
     try {
         const response = await apiFetch(`/devices/${deviceId}/load-history`);
@@ -624,5 +641,18 @@ setInterval(() => {
     loadMonthlyEnergy(deviceId);
     loadDailyLoad(deviceId);
 }, 10000);
+
+function refreshNamesForSelectedDevice() {
+    const id = document.getElementById("deviceSelect").value;
+    if (id) refreshChannelNames(id);
+}
+
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") refreshNamesForSelectedDevice();
+});
+
+window.addEventListener("pageshow", (e) => {
+    if (e.persisted) refreshNamesForSelectedDevice();
+});
 
 init();
