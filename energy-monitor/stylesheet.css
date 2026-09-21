@@ -238,11 +238,6 @@ hr{
     align-items:center;
     justify-content:center;
     color:white;
-    transition:0.3s ease;
-}
-
-.social_icons a:hover{
-    transform:translateY(-2.5px);
 }
 
 .slide{
