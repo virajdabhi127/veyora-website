@@ -29,7 +29,7 @@ function Hero() {
                             setSwiper(swiper)
                         }}
                         autoplay={{
-                        delay: 5000,
+                        delay: 3000,
                         disableOnInteraction: false,
                     }}
                     loop={true}
@@ -71,7 +71,7 @@ function Hero() {
                         </div>
                     </SwiperSlide>
                 </Swiper>
-        </div>
+            </div>
         </section>
     )
 }

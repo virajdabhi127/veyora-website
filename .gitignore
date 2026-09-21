@@ -8,6 +8,7 @@ pnpm-debug.log*
 lerna-debug.log*
 
 node_modules
+my-react-app
 dist
 README.md
 dist-ssr
@@ -23,4 +24,3 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
-my-react-app

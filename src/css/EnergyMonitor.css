@@ -1,0 +1,299 @@
+.energy .slide{
+    position:relative;
+    height:100vh;
+}
+
+.energy .slide img{
+    width:100%;
+    height:100%;
+    object-fit:cover;
+}
+
+.energy .slide::after{
+    content:"";
+    position:absolute;
+    inset:0;
+    background:
+    rgba(0,0,0,0.5);
+}
+
+.energy .hero-content{
+    position:absolute;
+    top:50%;
+    left:10%;
+    transform:translateY(-50%);
+    z-index:10;
+    color:white;
+    max-width:45rem;
+}
+
+.energy .hero-content h1{
+    font-size:4rem;
+    margin-bottom:2rem;
+}
+
+.energy .text_head{
+    font-size:2rem;
+    max-width: 50rem;
+}
+
+.energy .text_hero{
+    font-size: 2rem;
+    margin-top: 2rem;
+}
+
+.energy .about-product{
+    max-width:120rem;
+    margin:7rem auto;
+    display:flex;
+    gap:6rem;
+    align-items: center;
+}
+
+.energy .product-content{
+    flex:1;
+}
+
+.energy .product-content h1{
+    font-size:4rem;
+    font-weight:700;
+    margin-bottom:2rem;
+}
+
+.energy .product-content p{
+    font-size:1.8rem;
+    line-height:1.9;
+    color:#475569;
+}
+
+.energy .product-image, .energy .monitor-image{
+    display: flex;
+    height: 50%;
+    background-color: rgba(5,10,25,0.95);
+    border-radius: 1rem;
+    padding: 1rem 1rem;
+    flex:1;
+}
+
+.energy .product-image img, .energy .monitor-image img{
+    width:100%;
+    box-shadow: 0 25px 50px rgba(0,0,0,0.15);
+}
+
+.energy .gradient-line{
+    display:block;
+    width:10rem;
+    margin-bottom: 1rem;
+    height:4px;
+    border-radius:50px;
+    background:linear-gradient(
+        90deg,
+        transparent,
+        #00b4ff,
+        #4cc9ff,
+        #00b4ff,
+        transparent
+    );
+    background-size:250% 100%;
+    animation:gradientMove 3s linear infinite;
+}
+
+@keyframes gradientMove{
+    0%{
+        background-position:0% 50%;
+    }
+    100%{
+        background-position:250% 50%;
+    }
+}
+
+.energy .working{
+    max-width: 120rem;
+    text-align: center;
+    margin: 6rem auto;
+}
+
+.energy .working-content h1{
+    font-size: 4rem;
+    font-weight: 700;
+}
+
+.energy .working-content p{
+    margin-top: 1.5rem;
+    font-size: 1.8rem;
+    color: #666;
+    max-width: 70rem;
+    margin-left: auto;
+    margin-right: auto;
+    line-height: 1.7;
+}
+
+.energy .works-grid{
+    display:grid;
+    grid-template-columns:repeat(2,1fr);
+    gap:3rem;
+    margin-top:6rem;
+}
+
+.energy .work-card{
+    background-color: #eef4ff;
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:22px;
+    padding:35px;
+    gap: 3rem;
+    display: flex;
+    align-items: flex-start;
+    text-align: left;
+    position:relative;
+    overflow:hidden;
+}
+
+.energy .work-info{
+    flex: 1;
+}
+
+.energy .work-icon{
+    flex-shrink: 0;
+    width: 8rem;
+    height: 8rem;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border-radius: 50%;
+    background: #fff;
+    color: #1e5eff;
+    font-size: 3rem;
+    box-shadow: 0 10px 25px rgba(0,0,0,.08);
+}
+
+.energy .work-icon svg{
+    height: 4rem;
+    width: 4rem;
+}
+
+.energy .work-card h3{
+    color:#000;
+    font-size:2rem;
+    margin-bottom:18px;
+    font-weight:600;
+}
+
+.energy .work-card p{
+    color:#666;
+    line-height:1.8;
+    font-size:1.8rem;
+}
+
+.energy .dashboard-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:1rem;
+    margin-top:3rem;
+    padding:1rem 2.8rem;
+    border:2px solid #008cff;
+    border-radius:5rem;
+    color:#008cff;
+    background:transparent;
+    font-size:1.6rem;
+    font-weight:600;
+    text-decoration:none;
+    transition:0.3s ease;
+}
+
+.energy .dashboard-btn:hover{
+    background:#008cff;
+    color:#fff;
+}
+
+
+@media (max-width:768px) {
+    .energy .logo_text{
+        font-size: 1.5rem;
+    }
+    .energy .hero-content{
+        left: 2rem;
+        right: 2rem;
+        max-width: 100%;
+        top: 55%;
+        transform: translateY(-50%);
+    }
+    .energy .hero-content h1{
+        font-size: 2.6rem;
+        line-height: 1.1;
+    }
+    .energy .slide{
+        height:50vh;
+    }
+    .energy .hero-content p{
+        font-size: 1.5rem;
+        margin-top: 1.5rem;
+    }
+    .energy .about-product{
+        flex-direction:column;
+        gap:4rem;
+        margin:3rem auto;
+        padding:0 2rem;
+    }
+    .energy .product-content{
+        width: 100%;
+    }
+    .energy .product-content h1{
+        font-size: 3.2rem;
+        line-height: 1.2;
+    }
+    .energy .product-content p{
+        font-size: 1.55rem;
+        line-height: 1.45;
+    }
+    .energy .product-image{
+        width:100%;
+    }
+    .energy .product-image img{
+        width:100%;
+        max-width:40rem;
+        height:auto;
+    }
+    .energy .monitor-image{
+        width: 60%;
+    }
+    .energy .works-grid{
+        grid-template-columns: repeat(2,1fr);
+        margin: 0 2rem;
+    }
+    .energy .working-content{
+        margin: 2rem 1.25rem;
+        margin-bottom: 4rem;
+    }
+    .energy .working-content h1{
+        font-size: 2.6rem;
+    }
+    .energy .working-content h1::after{
+        width: 22rem;
+    }
+    .energy .work-card h3{
+        font-size: 1.6rem;
+    }
+    .energy .work-card p{
+        font-size: 1.25rem;
+    }
+    .energy .work-card{
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 1.5rem;
+        gap: 1rem;
+    }
+    .energy .work-icon{
+        min-width: 4rem;
+        width: 4rem;
+        height: 4rem;
+    }
+    .energy .work-icon svg{
+        width: 2.5rem;
+        height: 2.5rem;
+    }
+    .energy .dashboard-btn{
+        font-size: 1rem;
+        padding: 1rem 1.5rem;
+    }
+}
