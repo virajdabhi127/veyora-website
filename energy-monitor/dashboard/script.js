@@ -178,7 +178,7 @@ async function loadLoadHistory(deviceId) {
                 time.getHours() * 60 +
                 time.getMinutes() +
                 time.getSeconds() / 60;
-            if (previousTime !== null && (minutes - previousTime) > 0.5) {
+            if (previousTime !== null && (minutes - previousTime) > 2) {
                 chartData.push({
                     time: previousTime + 0.01,
                     power: null
@@ -190,10 +190,12 @@ async function loadLoadHistory(deviceId) {
             });
             previousTime = minutes;
         });
-        const ctx = document.getElementById("loadCurveChart");
         if (loadCurveChart) {
-            loadCurveChart.destroy();
+            loadCurveChart.data.datasets[0].data = chartData;
+            loadCurveChart.update("none");
+            return;
         }
+        const ctx = document.getElementById("loadCurveChart");
         loadCurveChart = new Chart(ctx, {
             type: "line",
             data: {
@@ -201,7 +203,13 @@ async function loadLoadHistory(deviceId) {
                     label: "Power (kW)",
                     data: chartData,
                     tension: 0.3,
-                    pointRadius: 0,
+                    pointRadius: (ctx) => {
+                        const d = ctx.dataset.data;
+                        const i = ctx.dataIndex;
+                        const prevNull = i === 0 || d[i - 1].power === null;
+                        const nextNull = i === d.length - 1 || d[i + 1].power === null;
+                        return (prevNull && nextNull) ? 2.5 : 0;
+                    },
                     borderWidth: 2,
                     fill: false,
                     spanGaps: false
@@ -493,6 +501,13 @@ document.getElementById("deviceSelect").addEventListener("change", async functio
     socket.emit("selectDevice", deviceId);
     loadDailyEnergy(deviceId);
     loadMonthlyEnergy(deviceId);
+    if (loadCurveChart) {
+        loadCurveChart.destroy();
+        loadCurveChart = null;
+    }
+    loadLoadHistory(deviceId);
+    loadDailyLoad(deviceId);
+    loadMonthlyLoad(deviceId);
 });
 
 function updateDashboard(data) {
@@ -653,6 +668,27 @@ document.addEventListener("visibilitychange", () => {
 
 window.addEventListener("pageshow", (e) => {
     if (e.persisted) refreshNamesForSelectedDevice();
+});
+
+let loadHistoryBusy = false;
+
+setInterval(async () => {
+    if (document.hidden || loadHistoryBusy) return;
+    const deviceId = document.getElementById("deviceSelect").value;
+    if (!deviceId) return;
+    loadHistoryBusy = true;
+    try {
+        await loadLoadHistory(deviceId);
+    } finally {
+        loadHistoryBusy = false;
+    }
+}, 10000);
+
+document.addEventListener("visibilitychange", () => {
+    if (document.visibilityState === "visible") {
+        const deviceId = document.getElementById("deviceSelect").value;
+        if (deviceId) loadLoadHistory(deviceId);
+    }
 });
 
 init();
