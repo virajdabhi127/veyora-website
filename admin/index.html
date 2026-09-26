@@ -14,23 +14,29 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
 </head>
 <body>
-    <h1>Veyora Admin Panel</h1>
-    <a href="#" id="home">HOME</a>
-    <hr>
+    <div id="mobileBlock">
+        <h2>Desktop Only</h2>
+        <p>The Veyora Admin Panel is only available on desktop or tablet screens. Please open this page on a larger device.</p>
+    </div>
     <div id="statsSection">
-        <div class="statCard">
-            <h3>Total Users</h3>
-            <h1 id="totalUsers">0</h1>
+        <div class="head">
+            <h1>Veyora Admin Panel</h1>
+            <a href="#" id="home">HOME</a>
         </div>
-        <div class="statCard">
-            <h3>Total Devices</h3>
-            <h1 id="totalDevices">0</h1>
+        <div class="stats">
+            <div class="statCard">
+                <h3>Total Users</h3>
+                <h1 id="totalUsers">0</h1>
+            </div>
+            <div class="statCard">
+                <h3>Total Devices</h3>
+                <h1 id="totalDevices">0</h1>
+            </div>
         </div>
     </div>
     <hr>
-    <div id="forms">
-
-        <div id="userSection">
+    <div class="pairRow">
+        <div class="panel" id="userSection">
             <h2 id="userFormTitle">Create User</h2>
             <form id="createUserForm">
                 <input type="hidden" id="editMode" value="">
@@ -53,10 +59,32 @@
                 </button>
             </form>
         </div>
-
-        <div id="deviceSection">
+        <div class="panel" id="users">
+            <label>Search User</label><br>
+            <input type="text" id="searchUser" placeholder="Search by User ID or Name">
+            <br><br>
+            <h2>Users</h2>
+            <div class="tableWrap">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th onclick="sortUsers()" id="userSortHeader">User ID (A - Z)</th>
+                            <th>Name</th>
+                            <th>Role</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="usersTableBody">
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+    <hr>
+    <div class="pairRow">
+        <div class="panel" id="deviceSection">
             <h2 id="deviceFormTitle">Assign Device</h2>
-             <form id="assignDeviceForm">
+            <form id="assignDeviceForm">
                 <input type="hidden" id="deviceEditMode" value="">
                 <label>Device ID</label><br>
                 <input type="text" id="deviceId"><br><br>
@@ -70,54 +98,37 @@
                 </select><br><br>
                 <label>Channel Count</label><br>
                 <input type="number" id="channelCount" min="1"><br><br>
+                <label>Product Key</label><br>
+                <input type="text" id="productKey" placeholder="16-character device key"><br><br>
                 <label>Current kWh Reading</label><br>
                 <input type="number" id="deviceEnergyKWh" step="0.01" min="0" placeholder="Current kWh Reading (optional)"><br><br>
                 <button type="submit" id="deviceSubmitBtn">Assign Device</button>
                 <button type="button" id="cancelDeviceBtn" onclick="cancelDeviceEdit()" style="display:none;"> Cancel</button>
             </form>
         </div>
-
-    </div>
-    <hr>
-     <div id="tables">
-        <div id="users">
-            <label>Search User</label><br>
-            <input type="text" id="searchUser" placeholder="Search by User ID or Name">
-            <br><br>
-            <h2>Users</h2>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th onclick="sortUsers()" id="userSortHeader">User ID (A - Z)</th>
-                        <th>Name</th>
-                        <th>Role</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="usersTableBody">
-                </tbody>
-            </table>
-        </div>
-        <div id="devices">
+        <div class="panel" id="devices">
             <label>Search Device</label><br>
             <input type="text" id="searchDevice" placeholder="Search by Device ID or User ID">
             <br><br>
             <h2>Devices</h2>
-            <table border="1">
-                <thead>
-                    <tr>
-                        <th onclick="sortDevices()" id="deviceSortHeader">Device ID (A - Z)</th>
-                        <th>User ID</th>
-                        <th>Product</th>
-                        <th>Channels</th>
-                        <th>Action</th>
-                    </tr>
-                </thead>
-                <tbody id="devicesTableBody">
-                </tbody>
-            </table>
+            <div class="tableWrap">
+                <table border="1">
+                    <thead>
+                        <tr>
+                            <th onclick="sortDevices()" id="deviceSortHeader">Device ID (A - Z)</th>
+                            <th>User ID</th>
+                            <th>Product</th>
+                            <th>Channels</th>
+                            <th>Action</th>
+                        </tr>
+                    </thead>
+                    <tbody id="devicesTableBody">
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
+    
     <script src="/api.js"></script>
     <script src="/admin/script.js"></script>
 </body>

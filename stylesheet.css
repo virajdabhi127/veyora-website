@@ -319,7 +319,7 @@ hr{
     margin-bottom: 2rem;
 }
 
- .solutions h1::after{
+.solutions h1::after{
     content:"";
     display:block;
     width:10rem;
@@ -389,8 +389,7 @@ hr{
     font-size: 1.5rem;
 }
 
-#energy-monitor,
-#home-automation {
+#energy-monitor, #home-automation {
     position: relative;
     overflow: hidden;
     border-radius: 2.5rem;

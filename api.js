@@ -1,4 +1,4 @@
-const USE_LOCAL_BACKEND = false; // true = localhost, false = Render
+const USE_LOCAL_BACKEND = false; // true = localhost
 
 const API = USE_LOCAL_BACKEND
     ? "http://localhost:3000"

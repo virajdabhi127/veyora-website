@@ -1,3 +1,7 @@
+if (window.innerWidth <= 720) {
+    throw new Error("Admin panel is desktop only.");
+}
+
 let users = [];
 let devices = [];
 let userSortAsc = true;
@@ -108,6 +112,7 @@ document.getElementById("assignDeviceForm").addEventListener("submit", async (e)
     const userid = document.getElementById("assignUserid").value.trim();
     const productCode = document.getElementById("productCode").value;
     const channelCount = document.getElementById("channelCount").value;
+    const productKey = document.getElementById("productKey").value.trim();
     const energyKWhRaw = document.getElementById("deviceEnergyKWh").value.trim();
     const editMode = document.getElementById("deviceEditMode").value;
     if(userid == "" || deviceId == "" || productCode == "" || channelCount == "") {
@@ -124,7 +129,8 @@ document.getElementById("assignDeviceForm").addEventListener("submit", async (e)
             deviceId,
             userid,
             productCode,
-            channelCount
+            channelCount,
+            productKey
         };
     } else {
         url = API + `/admin/device/${editMode}`;
