@@ -94,10 +94,10 @@ hr {
 }
 
 .pairRow {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
+    display: flex;
     gap: 24px;
     margin-bottom: 30px;
+    justify-content: space-between;
     align-items: stretch;
 }
 
@@ -110,6 +110,14 @@ hr {
     border: 1px solid var(--border);
     border-radius: 14px;
     box-shadow: 0 4px 16px rgba(20, 35, 60, 0.05);
+}
+
+#userSection{
+    width: 40%;
+}
+
+#deviceSection{
+    width: 50%;
 }
 
 form {
@@ -182,7 +190,7 @@ button:hover {
 
 .tableWrap {
     width: 100%;
-    max-height: 420px;
+    max-height: 500px;
     overflow-y: auto;
     overflow-x: auto;
     border: 1px solid var(--border);

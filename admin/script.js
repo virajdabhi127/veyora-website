@@ -201,6 +201,7 @@ document.getElementById("createUserForm").addEventListener("submit", async (e) =
     const username = document.getElementById("username").value.trim();
     const password = document.getElementById("password").value.trim();
     const role = document.getElementById("role").value;
+    const whatsappNumber = document.getElementById("whatsappNumber").value.trim();
     const editMode = document.getElementById("editMode").value;
     if(userid == "" || username == "" || password == "") {
         alert("Credentials cant be kept empty.");
@@ -216,7 +217,8 @@ document.getElementById("createUserForm").addEventListener("submit", async (e) =
             userid,
             username,
             password,
-            role
+            role,
+            whatsappNumber
         };
     } else {
         url = API + `/admin/user/${editMode}`;
@@ -224,7 +226,8 @@ document.getElementById("createUserForm").addEventListener("submit", async (e) =
         body = {
             username,
             password,
-            role
+            role,
+            whatsappNumber
         };
     }
     try {
@@ -289,6 +292,7 @@ function editUser(userid) {
     document.getElementById("username").value = user.username;
     document.getElementById("password").value = "";
     document.getElementById("role").value = user.role;
+    document.getElementById("whatsappNumber").value = user.whatsappNumber || "";
     document.getElementById("userSubmitBtn").textContent = "Update User";
     document.getElementById("cancelUserBtn").style.display = "inline-block";
 }
@@ -334,6 +338,7 @@ function renderUsers(userList) {
             <td>${user.userid}</td>
             <td>${user.username}</td>
             <td>${user.role}</td>
+            <td>${user.whatsappNumber || "-"}</td>
             <td>
                 <button onclick="editUser('${user.userid}')">Edit</button>
                 <button onclick="deleteUser('${user.userid}')">Delete</button>
