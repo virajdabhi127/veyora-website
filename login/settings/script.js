@@ -3,6 +3,11 @@ let socket = null;
 let lastPacketTime = 0;
 let deviceOnline = false;
 let resetInProgress = false;
+let wifiLoaded = false;
+let wifiLoading = false;
+let channelsLoaded = false;
+let channelsLoading = false;
+let lastRetryTime = 0;
 
 const socketUrl = API;
 
@@ -44,11 +49,11 @@ async function loadDevices() {
     });
     const selectedDevice = devices[0];
     deviceSelect.value = selectedDevice.deviceId;
-    await loadDeviceChannels(selectedDevice.deviceId);
-    await loadDeviceWiFi(selectedDevice.deviceId);
+    await fetchDeviceChannels(selectedDevice.deviceId);
+    await fetchDeviceWiFi(selectedDevice.deviceId);
 }
 
-async function loadDeviceChannels(deviceId) {
+async function fetchDeviceChannels(deviceId) {
     const container = document.getElementById("channelContainer");
     container.innerHTML = `
         <div class="settings-loading">
@@ -93,7 +98,7 @@ async function resetChannelEnergy(deviceId, channelId) {
     showSettingsAlert(`Channel ${channelId} reset successfully.`, "success");
 }
 
-async function loadDeviceWiFi(deviceId) {
+async function fetchDeviceWiFi(deviceId) {
     const container = document.getElementById("wifiHotspotContainer");
     const count = document.getElementById("wifiCount");
     container.innerHTML = `
@@ -132,11 +137,48 @@ async function loadDeviceWiFi(deviceId) {
     );
 }
 
+async function loadDeviceChannels(deviceId) {
+    channelsLoading = true;
+    channelsLoaded = false;
+    try {
+        await fetchDeviceChannels(deviceId);
+    } finally {
+        channelsLoading = false;
+    }
+}
+
+async function loadDeviceWiFi(deviceId) {
+    wifiLoading = true;
+    wifiLoaded = false;
+    try {
+        await fetchDeviceWiFi(deviceId);
+    } finally {
+        wifiLoading = false;
+    }
+}
+
+function retryFailedLoads() {
+    const deviceId = document.getElementById("deviceSelect").value;
+    if (!deviceId) return;
+
+    const now = Date.now();
+    if (now - lastRetryTime < 3000) return;
+    lastRetryTime = now;
+
+    if (!wifiLoaded && !wifiLoading && !document.getElementById("wifiAddForm")) {
+        loadDeviceWiFi(deviceId);
+    }
+    if (!channelsLoaded && !channelsLoading) {
+        loadDeviceChannels(deviceId);
+    }
+}
+
 function createWiFiSettings(hotspots, activeWifiId) {
     const container = document.getElementById("wifiHotspotContainer");
     const count = document.getElementById("wifiCount");
     container.innerHTML = "";
     const networks = hotspots || [];
+    wifiLoaded = networks.length > 0;
     count.textContent = `${networks.length} / 5`;
     if (networks.length === 0) {
         container.innerHTML = `
@@ -395,6 +437,7 @@ function createChannelSettings(channels) {
         `;
         return;
     }
+    channelsLoaded = true;
     channels.forEach(channel => {
         container.innerHTML += `
             <div class="channel-setting-card"
@@ -572,6 +615,7 @@ function updateDeviceStatus(data) {
         status.querySelector(".status-text").textContent = "Online";
         deviceOnline = true;
         refreshResetButtonState();
+        retryFailedLoads();
     } else {
         setDeviceOffline();
     }
