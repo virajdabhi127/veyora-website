@@ -493,7 +493,7 @@ hr{
     .dropdown > a{
         display: block;
         width: 100%;
-        text-align: center; /* or left if you prefer */
+        text-align: center;
     }
     .dropdown-content a{
         padding: 0.8rem 2rem;
@@ -522,6 +522,9 @@ hr{
     }
     .logo_text{
         font-size:2rem;
+    }
+    .hero-slider, .heroSwiper, .swiper-wrapper, .swiper-slide{
+        height:50vh;
     }
     .footer_grid{
         grid-template-columns:repeat(2,1fr);
