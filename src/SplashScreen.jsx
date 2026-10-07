@@ -1,61 +1,75 @@
 import { useEffect, useState } from 'react'
 
 function SplashScreen() {
-    const [hidden, setHidden] = useState(
-    sessionStorage.getItem('splashShown') === 'true'
-    )
-    const [progress, setProgress] = useState(0)
-    useEffect(() => {
-    const splashShown = sessionStorage.getItem('splashShown')
-    if (splashShown) {
-        setHidden(true)
-        return
+  const [hidden, setHidden] = useState(
+    () => sessionStorage.getItem('splashShown') === 'true',
+  )
+  const [progress, setProgress] = useState(0)
+
+  useEffect(() => {
+    if (hidden) {
+      return undefined
     }
-    let pageLoaded = false
-    let progress = 0
-    sessionStorage.setItem('splashShown', 'true')
+
+    let animationFrameId = null
+    let currentProgress = 0
+
+    const completeSplash = () => {
+      sessionStorage.setItem('splashShown', 'true')
+      setProgress(100)
+      window.setTimeout(() => setHidden(true), 400)
+    }
+
     const updateProgress = () => {
-        const resources = performance.getEntriesByType('resource')
-        if (resources.length > 0) {
-        const loadedResources = resources.filter(resource => {
-            return resource.responseEnd > 0
-        }).length
+      const resources = performance.getEntriesByType('resource')
+
+      if (resources.length > 0) {
+        const loadedResources = resources.filter(
+          (resource) => resource.responseEnd > 0,
+        ).length
         const resourceProgress = (loadedResources / resources.length) * 90
-        progress = Math.max(progress, resourceProgress)
-        } else {
-        progress = Math.min(progress + 1, 90)
-        }
-        progress = Math.min(progress, 90)
-        setProgress(progress)
-        if (!pageLoaded) {
-        requestAnimationFrame(updateProgress)
-        }
+        currentProgress = Math.max(currentProgress, resourceProgress)
+      } else {
+        currentProgress = Math.min(currentProgress + 2, 90)
+      }
+
+      setProgress(Math.min(currentProgress, 90))
+
+      if (document.readyState === 'complete') {
+        completeSplash()
+        return
+      }
+
+      animationFrameId = window.requestAnimationFrame(updateProgress)
     }
-    updateProgress()
+
     const handleLoad = () => {
-        pageLoaded = true
-        setProgress(100)
-        setTimeout(() => {
-        setHidden(true)
-        }, 250)
+      completeSplash()
     }
+
     window.addEventListener('load', handleLoad)
+    animationFrameId = window.requestAnimationFrame(updateProgress)
+
     return () => {
-        window.removeEventListener('load', handleLoad)
+      window.removeEventListener('load', handleLoad)
+      if (animationFrameId) {
+        window.cancelAnimationFrame(animationFrameId)
+      }
     }
-    }, [])
-    return (
-        <div id="splash-screen" className={hidden ? 'hide' : ''}>
-            <div className="splash-content">
-                <img src="/images/Veyora.png" alt="Veyora Logo"/>
-                <h2>Veyora</h2>
-                <p>Engineering Intelligent Automation</p>
-                <div className="loader">
-                    <div className="loader-bar" style={{ width: `${progress}%` }}></div>
-                </div>
-            </div>
+  }, [hidden])
+
+  return (
+    <div id="splash-screen" className={hidden ? 'hide' : ''}>
+      <div className="splash-content">
+        <img src="/images/Veyora.png" alt="Veyora Logo" />
+        <h2>Veyora</h2>
+        <p>Engineering Intelligent Automation</p>
+        <div className="loader">
+          <div className="loader-bar" style={{ width: `${progress}%` }} />
         </div>
-    )
+      </div>
+    </div>
+  )
 }
 
 export default SplashScreen

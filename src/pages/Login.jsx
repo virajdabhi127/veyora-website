@@ -1,65 +1,33 @@
-import { useState } from 'react'
-import { apiFetch } from '../api'
+import { useEffect, useState } from 'react'
+import { useDispatch, useSelector } from 'react-redux'
+import { useNavigate } from 'react-router-dom'
+import { loginRedirectHandled, loginRequested } from '../store'
 import '../css/Login.css'
 
 function Login() {
     const [showPassword, setShowPassword] = useState(false)
-    const handleLogin = async (e) => {
+    const dispatch = useDispatch()
+    const navigate = useNavigate()
+    const { loading, error, redirectTo } = useSelector((state) => state.auth)
+
+    useEffect(() => {
+        if (redirectTo) {
+            dispatch(loginRedirectHandled())
+            navigate(redirectTo, { replace: true })
+        }
+    }, [dispatch, navigate, redirectTo])
+
+    const handleLogin = (e) => {
         e.preventDefault()
-        const userid = e.target.userid.value.trim()
-        const password = e.target.password.value.trim()
-        if (!userid || !password) {
-            alert('Invalid credentials')
-            return
-        }
-        try {
-            const response = await apiFetch('/auth/login', {
-                method: 'POST',
-                skipAuthRedirect: true,
-                body: JSON.stringify({
-                    userid,
-                    password
-                })
-            })
-            const data = await response.json()
-            if (response.ok) {
-            if (data.user.role === 'admin') {
-                window.location.replace('/admin')
-                return
-            }
-            const deviceResponse = await apiFetch('/devices')
-            if (!deviceResponse) {
-                return
-            }
-            const deviceData = await deviceResponse.json()
-            if (!deviceData.devices || deviceData.devices.length === 0) {
-                alert('No device assigned.')
-                return
-            }
-            const productCode = deviceData.devices[0].productCode
-            switch (productCode) {
-                case 'EM':
-                    window.location.replace('/dashboard')
-                    break
-                // case 'HA':
-                //     window.location.replace('/home-automation/dashboard')
-                //     break
-                // case 'EM_HA':
-                //     window.location.replace('/combined/dashboard')
-                //     break
-                default: alert('No valid product assigned.')
-            }
-        } else {
-            alert(data.message)
-        }
-        } catch (error) {
-            console.error(error)
-            alert('Server error')
-        }
+        const formData = new FormData(e.currentTarget)
+        dispatch(loginRequested({
+            userid: String(formData.get('userid') || ''),
+            password: String(formData.get('password') || ''),
+        }))
     }
     return (
         <div className='login'>
-            <form id="loginForm" onSubmit={handleLogin}>
+            <form id="loginForm" onSubmit={handleLogin} aria-busy={loading}>
                 <div className="main">
                     <div className="head">
                         <h1 className="title">WELCOME</h1>
@@ -67,11 +35,11 @@ function Login() {
                     <div className="credits">
                         <div className="id">
                             <label htmlFor="userid" id="labelid">Enter User ID :</label>
-                            <input className="userId" type="text" id="userid" name="user"/>
+                            <input className="userId" type="text" id="userid" name="userid" autoComplete="username"/>
                         </div>
                         <div className="pass">
                             <label htmlFor="password" id="labelpass">Enter Password :</label>
-                            <input className="ps" type={showPassword ? 'text' : 'password'} id="password" name="password"/>
+                            <input className="ps" type={showPassword ? 'text' : 'password'} id="password" name="password" autoComplete="current-password"/>
                             <button type="button" id="togglePassword" onClick={() => setShowPassword(!showPassword)}>
                             {showPassword ? (
                                 <svg  xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
@@ -89,7 +57,11 @@ function Login() {
                         </button>
                         </div>
                     </div>
-                    <button type="submit" className="btn" id="loginBtn">Login</button>
+                    {error && <p className="login-error" role="alert">{error}</p>}
+                    <button type="submit" className="btn" id="loginBtn" disabled={loading}>
+                        {loading && <span className="spinner" aria-hidden="true" />}
+                        {loading ? 'Signing in...' : 'Login'}
+                    </button>
                 </div>
             </form>
         </div>

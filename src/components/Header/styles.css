@@ -1,0 +1,142 @@
+#nav_1{
+    height: 7rem;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+    transition: all 0.3s ease;
+    background: rgba(5,10,25,0.95);
+}
+
+#nav_1.scrolled{
+    background: rgba(5,10,25,0.95);
+    backdrop-filter: blur(12px);
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+}
+
+.logo{
+    display: flex;
+    align-items: center;
+    text-decoration: none;
+    color: inherit;
+}
+
+.logo:hover{
+    color: inherit;
+}
+
+.logo img{
+    padding: 1rem 0;
+    padding-left: 1rem;
+    height: 7rem;
+    width: auto;
+}
+
+.logo_text{
+    margin-left: 0.75rem;
+    font-size: 2.15rem;
+    font-weight: 500;
+    color: white;
+}
+
+.link_1{
+    display: flex;
+    align-items: center;
+}
+
+.dropdown{
+    position: relative;
+}
+
+.dropdown::before{
+    content:"";
+    position:absolute;
+    left:0;
+    top:100%;
+    width:100%;
+    height:15px;
+}
+
+.dropdown-content{
+    content: "";
+    margin: 1rem 0;
+    position: absolute;
+    top: 100%;
+    left: 0;
+    min-width: 220px;
+    background: rgba(5,10,25,0.95);
+    border-radius: 10px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    display: none;
+    z-index: 1000;
+}
+
+.dropdown-content a{
+    position: relative;
+    display: block;
+    padding: 12px 18px;
+    color: #333;
+    user-select: none;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.dropdown-content {
+    display: none;
+}
+
+.dropdown.open .dropdown-content {
+    display: block;
+}
+
+.link_1 a {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: white;
+    margin: 0 1.5rem;
+    position: relative;
+    text-decoration: none;
+    transition: 0.3s;
+}
+
+.link_1 > a::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:-0.8rem;
+    width:0;
+    height:3px;
+    background: linear-gradient(90deg, #2563EB, #38BDF8);
+    transform:translateX(-50%);
+    transition:0.5s ease;
+    border-radius:5px;
+}
+
+.dropdown-content a::after{
+    content:"";
+    position:absolute;
+    left:50%;
+    bottom:4px;
+    width:0;
+    height:2px;
+    background: linear-gradient(90deg,#2563EB,#38BDF8);
+    transform:translateX(-50%);
+    transition:0.5s ease;
+}
+
+.dropdown-content a:hover::after{
+    width:80%;
+}
+
+.link_1 a:hover::after, .link_1 a.active::after{
+    width:100%;
+}
+
+.menu-toggle{
+    display: none;
+}

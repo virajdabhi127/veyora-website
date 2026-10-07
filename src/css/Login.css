@@ -152,6 +152,13 @@
     vertical-align: middle;
 }
 
+.login-error {
+    width: 100%;
+    margin: 0 0 1rem;
+    color: #fecaca;
+    text-align: center;
+}
+
 @keyframes spin {
     to {
         transform: rotate(360deg);
