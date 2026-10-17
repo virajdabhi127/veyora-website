@@ -93,7 +93,7 @@ function Header({ variant }) {
                             </div>
                             <a href='#contact'>CONTACT</a>
                             <NavLink
-                                to='/about'
+                                to='/about-us'
                                 className={({ isActive }) =>
                                     isActive ? 'active' : ''
                                 }

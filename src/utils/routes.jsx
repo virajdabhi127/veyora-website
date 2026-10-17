@@ -1,6 +1,6 @@
 export const routes = {
     homepage: '/',
-    about: '/about',
+    about: '/about-us',
     energyMonitor: '/energy-monitor',
     login: '/login',
     dashboard: '/dashboard',
