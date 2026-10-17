@@ -1,0 +1,26 @@
+[
+    {
+        "title": "Engineering Intelligent Automation",
+        "description": "Smarter technology. Better efficiency. A more connected future.",
+        "withNavigation": true,
+        "image": "/images/wallpaper.png",
+        "navtigationButtonText": "Explore Energy Monitoring",
+        "navigationButtonLink": "/energy-monitor"
+    },
+    {
+        "title": "Smart Energy Monitoring",
+        "description": "Monitor, analyze and optimize your energy consumption intelligently.",
+        "withNavigation": true,
+        "image": "/images/wallpaper_1.png",
+        "navtigationButtonText": "Explore Energy Monitoring",
+        "navigationButtonLink": "/energy-monitor"
+    },
+    {
+        "title": "Intelligent Automation",
+        "description": "Transform the way you manage your home and energy with intelligent technology.",
+        "withNavigation": true,
+        "image": "/images/wallpaper_2.png",
+        "navtigationButtonText": "Discover Veyora",
+        "navigationButtonLink": "/about"
+    }
+]

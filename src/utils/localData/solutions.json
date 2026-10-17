@@ -1,0 +1,25 @@
+[
+    {
+        "title":"Smart Energy Monitoring System",
+        "description":"Gain complete visibility into your home's electrical consumption with real-time monitoring, advanced analytics and intelligent insights designed to improve efficiency and reduce energy costs.",
+        "features":[
+            "Real Time Energy Monitoring",
+            "Voltage - Current Power Analytics",
+            "Energy Consumption History",
+            "Cloud Dashboard",
+            "Mobile Access"
+        ],
+        "id": "energy-monitor"
+    },
+    {
+        "title":"Building smarter, connected living spaces",
+        "description":"Transform your home into an intelligent living space with connected devices, remote control, smart scheduling and seamless automation all managed through a unified ecosystem.",
+        "features":[
+            "Intelligent Lighting Control",
+            "Energy Optimization",
+            "Advanced Security Monitoring",
+            "Voice Control"
+        ],
+        "id": "home-automation"
+    }
+]

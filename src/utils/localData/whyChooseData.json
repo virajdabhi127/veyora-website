@@ -1,0 +1,22 @@
+[
+    {
+        "title": "Innovation-Driven Solutions",
+        "description": "Leveraging modern IoT technologies to develop intelligent and efficient automation systems.",
+        "icon": "IconBulb"
+    },
+    {
+        "title": "Reliable Engineering",
+        "description": "Designed with stability, precision, and long-term performance at the core of every solution.",
+        "icon": "IconShield"
+    },
+    {
+        "title": "Real-Time Monitoring",
+        "description": "Access live system data and insights for better control, visibility, and decision-making.",
+        "icon": "IconMonitor"
+    },
+    {
+        "title": "Scalable Architecture",
+        "description": "Flexible solutions built to adapt and grow with future requirements and technological advancements.",
+        "icon": "IconStack"
+    }
+]
