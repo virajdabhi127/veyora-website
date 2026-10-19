@@ -682,6 +682,7 @@ hr{
 .tablebox{
     margin-top:40px;
     overflow-x:auto;
+    -webkit-overflow-scrolling: touch;
     border:1px solid var(--line);
     border-radius:var(--radius);
     background:#fff;
@@ -766,7 +767,7 @@ th.vey{
 
 .uc .card{
     width: 35rem;
-    height: 12.5rem;
+    height: auto;
 }
 
 .uc .card h3{
@@ -811,6 +812,16 @@ th.vey{
     left:0;
     color:var(--green);
     font-weight:800;
+}
+
+.warranty{
+    display:flex;
+    flex-direction: column;
+    gap: 0.5rem;;
+}
+
+.warranty-link{
+    text-decoration: none;
 }
 
 form{
@@ -1108,12 +1119,7 @@ details p{
     .product-content p, .eyebrow, #how p, .dash p, details p, summary{
         font-size: 1.5rem;
     }
-    .split{
-        width: 100%;
-        padding: 0 2rem;
-        grid-template-columns:1fr
-    }
-    .card, .wrap, section, .feat, .btn-dark, .faq, .uc, .uc .card{
+    .card, section, .feat, .btn-dark, .faq, .uc, .uc .card, .split, .product-content, .tablebox{
         width:100%
     }
     .feat{
@@ -1122,11 +1128,17 @@ details p{
     br{
         display:none;
     }
-    .wrap, .card{
-        padding: 1.5rem 2rem;
+    .wrap{
+        padding: 2.5rem 2rem;
     }
-    .about-product{
+    .about-product, .feat, .split .card, .uc .card{
         padding: 1.5rem;
+    }
+    .product-content h1{
+        margin-bottom: 1rem;
+    }
+    .split{
+        margin-top: 1.5rem;
     }
     .steps{
         gap:5rem;
@@ -1134,25 +1146,18 @@ details p{
     .pilot-grid{
         gap: 2rem;
     }
-    .fgrid, .steps, .dash-points, .uc, .pilot-grid{
+    .fgrid, .steps, .dash-points, .uc, .pilot-grid, .split{
         grid-template-columns:1fr;
     }
     .fgrid, .faq{
         margin-top:1.5rem;
         padding: 0;
     }
-    .pricing{
+    .pricing, .working-content{
         margin-top: 2rem;
     }
     .tablebox, .uc, .pilot{
         margin-top: 1rem;
-    }
-    .specs{
-        overflow-x: auto;
-    }
-    .product-content{
-        width:100%;
-        padding: 0 2rem;
     }
 }
 
