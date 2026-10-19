@@ -232,12 +232,7 @@ hr{
 }
 
 .hero-btn:hover {
-    transform: translateY(-4px);
     box-shadow: 0 15px 20px rgba(13, 110, 253, 0.45);
-}
-
-.hero-btn:active {
-    transform: translateY(-1px);
 }
 
 .hero-btn::before {
@@ -1094,7 +1089,11 @@ details p{
         line-height: 1.1;
     }
     .slide{
-        height:50vh;
+        height:60vh;
+    }
+    .actions{
+        width: 100%;
+        padding-bottom: 3rem;
     }
     .hero-content p{
         font-size: 1.5rem;
@@ -1114,21 +1113,51 @@ details p{
         padding: 0 2rem;
         grid-template-columns:1fr
     }
-    .card{
+    .card, .wrap, section, .feat, .btn-dark, .faq, .uc, .uc .card{
         width:100%
     }
-    #how, .dash, .who{
-        padding: 0 2rem;
+    .feat{
+        height: auto;
+    }
+    br{
+        display:none;
+    }
+    .wrap, .card{
+        padding: 1.5rem 2rem;
+    }
+    .about-product{
+        padding: 1.5rem;
+    }
+    .steps{
+        gap:5rem;
+    }
+    .pilot-grid{
+        gap: 2rem;
     }
     .fgrid, .steps, .dash-points, .uc, .pilot-grid{
         grid-template-columns:1fr;
     }
-    #faq{
+    .fgrid, .faq{
+        margin-top:1.5rem;
+        padding: 0;
+    }
+    .pricing{
+        margin-top: 2rem;
+    }
+    .tablebox, .uc, .pilot{
+        margin-top: 1rem;
+    }
+    .specs{
+        overflow-x: auto;
+    }
+    .product-content{
         width:100%;
         padding: 0 2rem;
     }
-    .faq, details, #specs, .tablebox{
-        width: 100%;
-    }
-    
+}
+
+@media (max-width:480px) {
+    .feat{
+        width:100%;
+    }   
 }
