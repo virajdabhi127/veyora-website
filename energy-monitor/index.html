@@ -320,11 +320,12 @@
         document.getElementById('leadForm').addEventListener('submit',function(e){
         e.preventDefault();
         var f=new FormData(this);
-        var msg='Hi Veyora, I would like to know more about the Smart Energy Monitor.%0AName: '+encodeURIComponent(f.get('name'))+
-            '%0APhone: '+encodeURIComponent(f.get('phone'))+
-            '%0AInstall at: '+encodeURIComponent(f.get('type'))+
-            (f.get('bill')?'%0AMonthly bill: '+encodeURIComponent(f.get('bill')):'');
-        window.open('https://wa.me/919429587233?text='+msg,'_blank');
+        var text = 'Hi Veyora, I would like to know more about the Smart Energy Monitor.\n' +
+        'Name: ' + f.get('name') + '\n' +
+        'Phone: ' + f.get('phone') + '\n' +
+        'Install at: ' + f.get('type') +
+        (f.get('bill') ? '\nMonthly bill: ' + f.get('bill') : '');
+        window.open('https://wa.me/919429587233?text=' + encodeURIComponent(text), '_blank');
         });
     </script>
     <script>
