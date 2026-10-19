@@ -233,7 +233,7 @@
                     <li>
                         <div class="warranty">
                             <p>1 year Gaurantee + 3 years Warranty</p>
-                            <a href="/under-development" class="warranty-link">View Warranty Terms</a>
+                            <a href="#" class="warranty-link" onclick="development()">View Warranty Terms</a>
                         </div>
                     </li>
                 </ul>
@@ -347,6 +347,9 @@
                 .catch(err => {
                     console.error("Failed to copy:", err);
                 });
+        }
+        function development() {
+            alert("This page is currently Under-development.");
         }
         const menuToggle = document.querySelector(".menu-toggle");
         const navLinks = document.querySelector(".link_1");
