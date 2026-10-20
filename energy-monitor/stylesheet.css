@@ -1064,7 +1064,7 @@ details p{
         font-size:2rem;
     }
     .hero-slider, .heroSwiper, .swiper-wrapper, .swiper-slide{
-        height:50vh;
+        height:60vh;
     }
     .footer_grid{
         grid-template-columns:repeat(2,1fr);
