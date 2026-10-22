@@ -1,6 +1,7 @@
 import React from 'react'
 
 import EnergyMonitorComponent from './EnergyMonitorComponent'
+import '../../css/EnergyMonitor.css'
 
 function EnergyMonitorContainer() {
   return (

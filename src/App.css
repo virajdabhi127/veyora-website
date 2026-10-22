@@ -1,3 +1,10 @@
+:root{
+  --navy:#0b1b33; --navy-2:#12284a; --ink:#16233a; --muted:#5b6b82;
+  --line:#e3e8ef; --bg:#ffffff; --bg-soft:#f4f7fb;
+  --amber:#f5a623; --amber-d:#d98a0a; --green:#12a36b; --red:#d6453d;
+  --radius:16px; --shadow:0 10px 30px rgba(11,27,51,.10);
+}
+
 body {
   margin: 0;
   font-family: Arial, sans-serif;
