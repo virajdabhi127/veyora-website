@@ -1,13 +1,12 @@
 import { Routes, Route } from 'react-router-dom';
-import SplashScreen from './SplashScreen';
-import EnergyMonitor from './pages/EnergyMonitor';
 import Login from './pages/Login';
 
-import { routes } from './utils/routes';
 import './App.css';
+import { routes } from './utils/routes';
 import AppLayout from './appLayout';
 import { Homepage } from './components/Homepage';
 import { AboutUs } from './components/AboutUs';
+import { EnergyMonitor } from './components/EnergyMonitor';
 
 function App() {
     return (
@@ -15,6 +14,7 @@ function App() {
             <Routes>
                 <Route path={routes.homepage} element={<Homepage />} />
                 <Route path={routes.about} element={<AboutUs />} />
+                <Route path={routes.energyMonitor} element={<EnergyMonitor />} />
                 {/* <Route
                     path='/energy-monitor'
                     element={
