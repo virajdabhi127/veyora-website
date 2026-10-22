@@ -1,24 +1,8 @@
 import React from 'react';
 
 import '../../css/About.css';
-import aboutUsExpertise from 'localData/aboutUsExpertise';
-import {
-    IconLightning,
-    IconEarth,
-    IconRobot,
-    IconDatabase,
-    IconCharging,
-    IconCloud,
-} from 'Icons';
+import OurExpertise from './components/OurExpertise';
 
-const Icons = {
-    IconLightning: <IconLightning />,
-    IconEarth: <IconEarth />,
-    IconRobot: <IconRobot />,
-    IconDatabase: <IconDatabase />,
-    IconCharging: <IconCharging />,
-    IconCloud: <IconCloud />,
-};
 
 function AboutUsComponent() {
     return (
@@ -46,24 +30,7 @@ function AboutUsComponent() {
                     </div>
                 </div>
             </section>
-            <section>
-                <div className='our_expertise' id='our_expertise'>
-                    <h1>Our Expertise</h1>
-                    <div className='grid'>
-                        {aboutUsExpertise.map((expertise) => (
-                            <div className='box' key={expertise.title}>
-                                <div className='icon'>
-                                    {Icons[expertise.icon]}
-                                </div>
-                                <div className='box_content'>
-                                    <h2>{expertise.title}</h2>
-                                    <p>{expertise.description}</p>
-                                </div>
-                            </div>
-                        ))}
-                    </div>
-                </div>
-            </section>
+            <OurExpertise />
         </div>
     );
 }
