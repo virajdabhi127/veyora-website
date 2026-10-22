@@ -16,14 +16,6 @@ function App() {
                 <Route path={routes.homepage} element={<Homepage />} />
                 <Route path={routes.about} element={<AboutUs />} />
                 {/* <Route
-                    path='/about'
-                    element={
-                        <>
-                            <About />
-                        </>
-                    }
-                />
-                <Route
                     path='/energy-monitor'
                     element={
                         <>

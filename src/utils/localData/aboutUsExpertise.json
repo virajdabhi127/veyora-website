@@ -1,0 +1,32 @@
+[
+    {
+        "title": "Embedded Systems",
+        "description": "Designing reliable hardware and firmware solutions using modern microcontrollers and embedded technologies.",
+        "icon":"IconLightning"
+    },
+    {
+        "title": "IoT Solutions",
+        "description": "Connecting devices to the cloud for real-time monitoring, control, and data-driven decision making.",
+        "icon":"IconEarth"
+    },
+    {
+        "title": "Automation",
+        "description": "Developing smart systems that reduce manual effort and improve operational efficiency.",
+        "icon":"IconRobot"
+    },
+    {
+        "title": "Data Monitoring",
+        "description": "Transforming real-time data into meaningful insights through dashboards and analytics.",
+        "icon":"IconDatabase"
+    },
+    {
+        "title": "Energy Systems",
+        "description": "Building intelligent solutions focused on power management, monitoring, and optimization.",
+        "icon":"IconCharging"
+    },
+    {
+        "title": "Cloud Platforms",
+        "description": "Creating responsive web interfaces for seamless device management and user interaction.",
+        "icon":"IconCloud"
+    }
+]
