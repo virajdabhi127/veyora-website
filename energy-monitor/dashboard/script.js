@@ -522,7 +522,7 @@ function updateDashboard(data) {
     document.getElementById("lastUpdate").textContent = formatLastUpdate(data.lastUpdate);
     document.getElementById("voltage").textContent = `${Number(data.voltage).toFixed(2)} V`;
     document.getElementById("totalCurrent").textContent = `${Number(data.totalCurrent).toFixed(2)} A`;
-    document.getElementById("energyKWh").textContent = `${Number(data.energyKWh).toFixed(2)} kWh`;
+    document.getElementById("energyKWh").textContent = Number(data.energyKWh).toFixed(2);
     document.getElementById("totalPowerFactor").textContent = Number(data.totalPowerFactor).toFixed(2);
     document.getElementById("totalRealPower").textContent = `${Number(data.totalRealPower/1000).toFixed(2)} kW`;
     document.getElementById("totalApparentPower").textContent = `${Number(data.totalApparentPower/1000).toFixed(2)} kVA`;
