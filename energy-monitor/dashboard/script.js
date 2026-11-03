@@ -330,11 +330,11 @@ async function loadDailyLoad(deviceId) {
     const baseLoad = Number(result.load?.base_load);
     document.getElementById("peakLoad").textContent =
             Number.isFinite(peakLoad)
-                ? `${(peakLoad / 1000).toFixed(2)} KW`
+                ? `${(peakLoad / 1000).toFixed(2)} kW`
                 : "-- KW";
     document.getElementById("baseLoad").textContent =
             Number.isFinite(baseLoad)
-                ? `${(baseLoad / 1000).toFixed(2)} KW`
+                ? `${(baseLoad / 1000).toFixed(2)} kW`
                 : "-- KW";
 }
 
@@ -522,16 +522,16 @@ function updateDashboard(data) {
     document.getElementById("lastUpdate").textContent = formatLastUpdate(data.lastUpdate);
     document.getElementById("voltage").textContent = `${Number(data.voltage).toFixed(2)} V`;
     document.getElementById("totalCurrent").textContent = `${Number(data.totalCurrent).toFixed(2)} A`;
-    document.getElementById("energyKWh").textContent = Number(data.energyKWh).toFixed(2);
+    document.getElementById("energyKWh").textContent = `${Number(data.energyKWh).toFixed(2)} kWh`;
     document.getElementById("totalPowerFactor").textContent = Number(data.totalPowerFactor).toFixed(2);
-    document.getElementById("totalRealPower").textContent = `${Number(data.totalRealPower/1000).toFixed(2)} KW`;
-    document.getElementById("totalApparentPower").textContent = `${Number(data.totalApparentPower/1000).toFixed(2)} KVA`;
+    document.getElementById("totalRealPower").textContent = `${Number(data.totalRealPower/1000).toFixed(2)} kW`;
+    document.getElementById("totalApparentPower").textContent = `${Number(data.totalApparentPower/1000).toFixed(2)} kVA`;
     (data.channels || []).forEach(channel => {
         document.getElementById(`current-${channel.channelId}`).textContent = channel.current.toFixed(2);
         document.getElementById(`pf-${channel.channelId}`).textContent = channel.pf.toFixed(2);
         document.getElementById(`power-${channel.channelId}`).textContent = channel.realPower.toFixed(0);
         document.getElementById(`apparent-${channel.channelId}`).textContent = channel.apparentPower.toFixed(0);
-        document.getElementById(`energy-${channel.channelId}`).textContent = Number(channel.energyKWh).toFixed(2);
+        document.getElementById(`energy-${channel.channelId}`).textContent = channel.energyKWh.toFixed(2);
     });
 }
 
@@ -584,7 +584,7 @@ function createChannelCards(channels) {
                 </p>
                 <p>
                     Energy :
-                    <span id="energy-${channel.channel_id}">0</span>
+                    <span id="energy-${channel.channel_id}">0</span> kWh
                 </p>
             </div>
         `;
