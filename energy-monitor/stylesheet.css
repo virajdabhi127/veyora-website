@@ -702,6 +702,10 @@ th,td{
     vertical-align:top;
 }
 
+td{
+    font-size: 1.75rem;
+}
+
 th{
     background:var(--bg-soft);
     font-size:18px;
@@ -1121,7 +1125,7 @@ details p{
     .product-content h1, .working-content h1, #how h1, .dash h1, .features h1, .wrap h1, .pricing h3{
         font-size: 2rem;
     }
-    .product-content p, .eyebrow, #how p, .dash p, details p, summary{
+    .product-content p, .eyebrow, #how p, .dash p, details p, summary, td{
         font-size: 1.5rem;
     }
     .card, section, .feat, .btn-dark, .faq, .uc, .uc .card, .split, .product-content, .tablebox{
